@@ -1,1 +1,1 @@
-web: gunicorn hivseddb.wsgi
+web: gunicorn hivseqdb.wsgi
