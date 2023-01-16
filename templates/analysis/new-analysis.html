@@ -1,0 +1,103 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>HIVsedDB | New HIVDR analysis</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<style>
+    .analysis-container {
+        width: 90%;
+        border-radius: 5px;
+        background-color:#F8F8F8; 
+        margin: auto;
+        height: 100%;
+    }
+    .instructions {
+    height: 100px;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+/*    align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 20px 20px 50px;
+    border-bottom: 1px solid #E0E0E0;     
+ }
+    .analysis-header {
+    height: 100px;
+    width: 100%;
+    border-radius: 0px;
+    display: flex;
+/*    align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: 1px solid #E0E0E0; 
+  /*  background-color:lightgrey; */
+
+ }
+ .icon {
+     color: black;
+     font-size: 40px;
+     padding: 20px 20px 20px 20px;
+     font-family: bold;
+ }
+
+ .scroll {
+    overflow-y: scroll ;
+    height: 350px;
+ }
+
+ .params {
+     margin: auto;
+     width: 90%;
+     align-items: center;
+ }
+ 
+ label {
+    color:black;
+    font-weight: bold;
+ }
+ .asteriskField {
+     color:red;
+ }
+ 
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="analysis-container">
+<div class="analysis-header">
+    <div class="icon">
+        <i class="fa fa-play" aria-hidden="true"></i>
+        &nbsp Create New Analysis 
+    </div>
+</div>
+<br><br>
+<div class="instructions">
+    <p><i class="fa fa-flag" aria-hidden="true"></i>
+        &nbsp Step 1: Choose a project ID whose data is already uploaded</p>
+    <p><i class="fa fa-flag" aria-hidden="true"></i>
+        &nbsp Step 2: Set analysis parameters using the parameters section below</p>
+    <p><i class="fa fa-flag" aria-hidden="true"></i>
+        &nbsp Step 3: Press the submit analysis button to start analysis</p> 
+    <br>
+</div>
+<br>
+
+<div class="scroll">
+    <div class="params">
+        {% crispy form %}  
+    </div>
+    <br>
+</div>
+<br>
+</div>
+<br>
+
+{% endblock %}

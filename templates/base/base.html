@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  {% block title %}
+  {% endblock %}
+  <!--   template block for page specific js files       -->
+  {% block top_js %}
+  {% endblock %}
+  <!--   template block for page specific css files       -->
+  {% block css %}
+  {% endblock %} 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <title>HIVsedDB</title>
+  <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15/svgs/solid/virus.svg>
+<style>
+  html {
+    position: relative;
+    min-height: 100%;
+    width: 90%;
+    margin: auto;
+  }
+  body {
+      margin: auto;
+      margin-bottom: 60px; /* Margin bottom by footer height */
+  }
+  .navbar-custom {
+    background-color:#4682B4;
+  }
+  .navbar-custom .navbar-nav .nav-link {
+    color: #fff;
+    /* padding: .75rem 1rem; */
+    font-size: large;
+  }
+  .navbar-custom .navbar-brand,
+  .navbar-custom .navbar-text {
+    color: #fff;
+  }
+  .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+  text-align: center;
+  background-color: #4682B4;
+}
+
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-custom rounded sticky-top">
+  <a class="navbar-brand" href="#"><h2><Strong>HIVseqDB</Strong></h2></a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Data</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Analysis</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Contact us</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Tutorial</a>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Data upload</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Login</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid"><br>
+</div>
+
+{% block content %}
+{% endblock %}
+
+<footer class="footer rounded">
+  <div class="container">
+    <span class="text-light">
+       Uganda Virus Research Institute &copy; 2021 - <script>document.write(new Date().getFullYear())</script>
+    </span>
+  </div>
+</footer>
+
+</body>
+{% block js %}
+{% endblock %}
+</html>
+
+

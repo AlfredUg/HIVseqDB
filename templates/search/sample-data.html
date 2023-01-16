@@ -1,0 +1,116 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>HIVsedDB | Data uploads</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<style>
+    .analysis-container {
+        width: 90%;
+        border-radius: 5px;
+        background-color:#F8F8F8; 
+        margin: auto;
+        height: 100%;
+    }
+    .instructions {
+    height: 100px;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+/*    align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 20px 20px 50px;
+    border-bottom: 1px solid #E0E0E0;     
+ }
+    .analysis-header {
+    height: 100px;
+    width: 100%;
+    border-radius: 0px;
+    display: flex;
+/*    align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: 1px solid #E0E0E0; 
+  /*  background-color:lightgrey; */
+
+ }
+ .icon {
+     color: black;
+     font-size: 40px;
+     padding: 20px 20px 20px 20px;
+     font-family: bold;
+ }
+
+ .scroll {
+    overflow-y: scroll ;
+    height: 350px;
+ }
+
+ .params {
+     margin: auto;
+     width: 90%;
+     align-items: center;
+ }
+ 
+ label {
+    color:black;
+    font-weight: bold;
+ }
+ .asteriskField {
+     color:red;
+ }
+ 
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="analysis-container">
+<div class="analysis-header">
+    <div class="icon">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        &nbsp Browse sample metadata 
+    </div>
+</div>
+<br><br>
+
+<div class="params">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sample ID</th>
+                <th>Gender</th>
+                <th>Location</th>
+                <th>Age</th>
+                <th>Regimen</th>
+                <th>Viral load</th>
+                <th>Sampling date</th>
+                <th>Project ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in page_obj %}
+            <tr>
+                <td>{{result.sample_ID}}</td>
+                <td>{{result.gene}}</td>
+                <td>{{result.wildType}}</td>
+                <td>{{result.position}}</td>
+                <td>{{result.mutation}}</td>
+                <td>{{result.mutation_Frequency}}</td>
+                <td>{{result.project_ID}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br><br>
+</div>
+<br>
+
+{% endblock %}
