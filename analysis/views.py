@@ -3,7 +3,6 @@ from analysis.models import AnalysisResults
 from django import forms
 from django.views import generic
 from analysis.forms import NewAnalysisForm
-import django_tables2 as tables
 # Create your views here.
 
 class CreateNewAnalysisForm(generic.CreateView):
