@@ -1,0 +1,122 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>HIVsedDB | Home</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<style>
+    .analysis-container {
+        height: 100%;
+        border-radius: 5px;
+        background-color:#F8F8F8; 
+        margin: auto;
+        padding-left: 5%;
+        padding-right: 5%;
+
+    }
+
+    .analysis-header {
+        border-radius: 0px;
+        border-bottom: 1px solid rgb(70,130,180); 
+    }
+    .icon {
+        color: black;
+        font-size: 70px;
+        padding-top: 50px ;
+        padding-bottom:  0px;
+        font-family: bold;
+    }
+
+ .scroll {
+    overflow-y: scroll ;
+    height: 350px;
+ }
+
+ .params {
+     margin: auto;
+     width: 90%;
+     align-items: center;
+ }
+ 
+ label {
+    color:black;
+    font-weight: bold;
+ }
+ .asteriskField {
+     color:red;
+ }
+ 
+  p {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: larger;
+    }
+
+ .card-title, .card-text {
+    text-align: center;
+ }
+
+.row {
+    padding-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: aqua;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="analysis-container">
+    <!-- Section header -->
+    <div class="analysis-header">
+        <!-- Icon and header text -->
+        <div class="icon">HIVseqDB</div>
+    </div> 
+    <p>Portable webserver for management and analysis of NGS-based HIV Drug Resistance Data</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"> <i class="fa fa-database" aria-hidden="true"></i>
+                        &nbsp Data management</h3>
+                    <p class="card-text">Secure and proper management of uploaded NGS data, matched with sample data.
+                        HIVseqDB provides a is higly searchable database protected through user authefication.
+                    </p>
+                    <a class="btn btn-secondary btn-lg btn-block check" href="#">More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><i class="fa fa-sliders" aria-hidden="true"></i>
+                        &nbsp Data analysis</h3>
+                    <p class="card-text">NGS-based HIVDR data is analysed using the state of the art tools. Results given off in user friendly reports and data files
+                        given off as exports in readable formats.</p>
+                    <a class="btn btn-secondary btn-lg btn-block" href="#">More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"><i class="fa fa-server" aria-hidden="true"></i>
+                        &nbsp Portability</h3>
+                        <p class="card-text"> HIVseqDB can be deployed on different computing environments. It is distributed with guidelines for setting it up for 
+                            on-prem and cloud-based compute solutions.</p>
+                        <a class="btn btn-secondary btn-lg btn-block" href="#">More</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+<br>    
+</div>   
+<!-- The home cards -->
+{% endblock %}
