@@ -10,7 +10,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from uploads.tasks import process
 from uploads.models import Tasks
-from celery.result import AsyncResult
+#from celery.result import AsyncResult
 
 class CreateFastqUploadForm(SuccessMessageMixin, generic.CreateView):
     template_name = 'uploads/upload-NGS-data.html'
