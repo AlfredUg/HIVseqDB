@@ -16,6 +16,7 @@ class SampleDataUploadForm(ModelForm):
     @property
     def helper(self):
         helper = FormHelper(self)
+        helper.layout=Layout()
         for field in self.Meta().fields:
             helper.layout.append(
                 Field(field, wrapper_class='row')
@@ -24,8 +25,7 @@ class SampleDataUploadForm(ModelForm):
         helper.field_class='col-9'
         helper.label_class='col-3'
         helper.form_class = 'form-horizontal'
-        #helper.layout.append(Button('cancel', 'Cancel', css_class='btn-danger'))
-        helper.form_class = 'form-horizontal'
+        helper.layout.append(Button('cancel', 'Cancel', css_class='btn-danger'))
         return helper
 
 class FastqUploadForm(ModelForm):
@@ -57,11 +57,12 @@ class FastqUploadForm(ModelForm):
     @property
     def helper(self):
         helper = FormHelper(self)
+        helper.layout=Layout()        
         for field in self.Meta().fields:
             helper.layout.append(
                 Field(field, wrapper_class='row')
             )
-        helper.layout.append(Submit('submit', 'Submit analysis', css_class='btn-success'))
+        helper.layout.append(Submit('submit', 'Upload data to database', css_class='btn-success'))
         helper.field_class='col-9'
         helper.label_class='col-3'
         helper.form_class = 'form-horizontal'
