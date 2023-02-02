@@ -8,7 +8,8 @@ class NewAnalysisForm(ModelForm):
     class Meta:  
             model = NewAnalysis  
             fields = ['project_ID',  'description', 
-                     'email', 'consensus_Percentage', 'error_Rate', 'length_Cutoff', 'minimum_Allele_Count', 
+                     'email', 'consensus_Percentage', 'error_Rate', 
+                     'length_Cutoff', 'minimum_Allele_Count', 
                      'minimum_Mutation_Frequency', 'minimum_Read_Depth', 
                      'minimum_Variant_Quality', 'mutation_Database', 'score_Cutoff',
                     'target_Coverage']

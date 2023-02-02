@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class NewAnalysis(models.Model):
     analysis_id=models.AutoField(primary_key=True)
-    project_ID=models.CharField(max_length=250, default="PRJN00923")
+    project_ID=models.CharField(max_length=250, unique=True)
     description=models.CharField(max_length=250, default="DTG virological failure adults in Uganda")
     email=models.EmailField(max_length=250)
     mutation_Database=models.CharField(max_length=250)
@@ -25,14 +25,12 @@ class NewAnalysis(models.Model):
 
 class AnalysisResults(models.Model):
     analysis_results_id=models.AutoField(primary_key=True)
-    sample_ID=models.CharField(max_length=250, default="S001")
-    gene=models.CharField(max_length=250, default="IN")
-    wildType=models.CharField(max_length=250, default="N")
-    position=models.IntegerField(default=100)
-    mutation=models.CharField(max_length=250, default="H")
-    mutation_Frequency=models.DecimalField(decimal_places=2,max_digits=5,default=100)
-    Consensus_sequence=models.CharField(max_length=250, default="ACGTGGGGGGGTCTGGGG")
-    project_ID=models.ForeignKey('NewAnalysis', on_delete=models.CASCADE)
+    sample_ID=models.CharField(max_length=250)
+    drugClass=models.CharField(max_length=250)
+    drugName=models.CharField(max_length=250)
+    drugScore=models.DecimalField(decimal_places=2,max_digits=5)
+    susceptibility=models.CharField(max_length=250)
+    project_ID=models.ForeignKey(NewAnalysis, to_field="project_ID",db_column="project_ID",on_delete=models.CASCADE)
 
     def __str__(self):
         return self.sample_ID

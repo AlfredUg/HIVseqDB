@@ -79,11 +79,10 @@
         <thead>
             <tr>
                 <th>Sample ID</th>
-                <th>Gene</th>
-                <th>Wild type</th>
-                <th>Position</th>
-                <th>Mutation</th>
-                <th>Mutation frequency</th>
+                <th>Drug Class</th>
+                <th>Drug Name type</th>
+                <th>Drug Score</th>
+                <th>Susceptibilty</th>
                 <th>Project ID</th>
             </tr>
         </thead>
@@ -91,11 +90,10 @@
             {% for result in page_obj %}
             <tr>
                 <td>{{result.sample_ID}}</td>
-                <td>{{result.gene}}</td>
-                <td>{{result.wildType}}</td>
-                <td>{{result.position}}</td>
-                <td>{{result.mutation}}</td>
-                <td>{{result.mutation_Frequency}}</td>
+                <td>{{result.drugClass}}</td>
+                <td>{{result.drugName}}</td>
+                <td>{{result.drugScore}}</td>
+                <td>{{result.susceptibility}}</td>
                 <td>{{result.project_ID}}</td>
             </tr>
             {% endfor %}

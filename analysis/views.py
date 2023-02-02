@@ -13,7 +13,7 @@ class AnalysisResultsView(generic.ListView):
     model = AnalysisResults
     queryset = AnalysisResults.objects.all().order_by('analysis_results_id')
     template_name = 'analysis/analysis-results.html'
-    paginate_by = 2
+    paginate_by = 10
 
 class DetailedAnalysisView(generic.ListView):
     context_object_name = 'analysisResultsDetails'
