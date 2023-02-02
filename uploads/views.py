@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views import generic
 from django.http import HttpResponseRedirect
 from uploads.models import Project
@@ -12,7 +11,7 @@ from uploads.tasks import process
 from uploads.models import Tasks
 #from celery.result import AsyncResult
 
-class CreateFastqUploadForm(SuccessMessageMixin, generic.CreateView):
+class CreateFastqUpload(SuccessMessageMixin, generic.CreateView):
     template_name = 'uploads/upload-NGS-data.html'
     form_class = FastqUploadForm
 
@@ -31,9 +30,9 @@ class CreateFastqUploadForm(SuccessMessageMixin, generic.CreateView):
                                           Sequencing_Date=Sequencing_Date
                                           )
                   project_instance.save()
-              messages.success(self.request, 'Data submission was successful')
+              messages.success(self.request, 'Congrats! Your data submission was successful')
               return HttpResponseRedirect(self.request.path_info)
                 
-class CreateSampleUploadForm(generic.CreateView):
+class CreateSampleUpload(generic.CreateView):
     template_name = 'uploads/upload-sample-metadata.html'
     form_class = SampleDataUploadForm

@@ -1,8 +1,9 @@
 {% extends "base/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
-<title>HIVsedDB | HIVDR analysis results</title>
+<title>HIVsedDB | Detailed HIVDR analysis results</title>
 {% endblock %}
 
 {% block css %}
@@ -11,7 +12,7 @@
 <style>
     .analysis-container {
         height: 100%;
-        width: 90%;
+        /* width: 0%; */
         border-radius: 5px;
         background-color:#F8F8F8; 
         margin: auto;
@@ -28,7 +29,7 @@
     justify-content: center;
     flex-direction: column;
     padding: 20px 20px 20px 50px;
-    border-bottom: 1px solid #E0E0E0;     
+    border-bottom: 1px solid rgb(70,130,180); 
  }
     .analysis-header {
     height: 100px;
@@ -38,7 +39,7 @@
 /*    align-items: center; */
     justify-content: center;
     flex-direction: column;
-    border-bottom: 1px solid rgb(70,130,180); 
+    border-bottom: 1px solid #E0E0E0; 
   /*  background-color:lightgrey; */
 
  }
@@ -49,10 +50,15 @@
      font-family: bold;
  }
 
+ .sample-info {
+     color:black;
+     font-size: 30px;
+     padding: 20px 20px 20px 20px;
+ }
+
  .params {
      margin: auto;
      width: 90%;
-     align-items: center;
  }
 
  .check {
@@ -69,11 +75,23 @@
 <div class="analysis-container">
 <div class="analysis-header">
     <div class="icon">
-        <i class="fa fa-list" aria-hidden="true"></i>
-        &nbsp Analysis results
+        <i class="fa fa-medkit" aria-hidden="true">&nbsp</i> HIV Drug Resistance Testing Results
     </div>
 </div>
-<br><br>
+
+<br>
+<div>
+    <ul>
+        <p><i class="fa fa-file-text" aria-hidden="true">&nbsp</i> Amino Acid Variant Calls can be download <a href="#">here</a></p>
+        <p> <i class="fa fa-file-text" aria-hidden="true">&nbsp</i>
+        The JSON object for analysis of HIV drug resistance is available <a href="#">here</a><p></p>
+        <p> <i class="fa fa-file-text" aria-hidden="true">&nbsp</i>
+        Amino Acid Variant Calls can be download <a href="#">here</a><p></p>
+        <p><i class="fa fa-file-text" aria-hidden="true">&nbsp</i> The drug resistance report can be download from the frame below <a href="#">here</a></p>
+    </ul>
+</div>
+
+<br>
 <div>
     <table class="table table-striped">
         <thead>
@@ -134,6 +152,11 @@
         </li>
         {% endif %}
     </ul>
+</div>
+
+<!-- <div>
+    <iframe src="{% static "analysis/hivdr_DRR030218.pdf" %}" style="width:100%; height:800px;" frameborder="0" allowfullscreen></iframe>
+</div> -->
 </div>
 <br>
 </div>
