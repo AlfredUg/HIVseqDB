@@ -16,86 +16,59 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"></script>
   
   <title>HIVsedDB</title>
   <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15/svgs/solid/virus.svg>
 <style>
-  html {
-    position: relative;
-    min-height: 100%;
+  body{
     width: 90%;
     margin: auto;
   }
-  body {
-      margin: auto;
-      margin-bottom: 60px; /* Margin bottom by footer height */
-  }
-  .navbar-custom {
-    background-color:#4682B4;
-  }
-  .navbar-custom .navbar-nav .nav-link {
-    color: #fff;
-    /* padding: .75rem 1rem; */
-    font-size: large;
-  }
-  .navbar-custom .navbar-brand,
-  .navbar-custom .navbar-text {
+  .nav-item .nav-link{
     color: #fff;
   }
-  .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px; /* Set the fixed height of the footer here */
-  line-height: 60px; /* Vertically center the text there */
-  text-align: center;
-  background-color: #4682B4;
-}
-
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm navbar-custom rounded sticky-top">
-  <a class="navbar-brand" href="#"><h2><Strong>HIVseqDB</Strong></h2></a>
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="/home/">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/search/advanced/">NGS data</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Sample metadata</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/analysis/create/">Create analysis</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/analysis/results/">HIVDR results</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Contact us</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Tutorial</a>
-    </li>
-  </ul>
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="/uploads/ngs-data/">Data upload</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Login</a>
-    </li>
-  </ul>
-</nav>
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom rounded sticky-top" style="background-color: rgb(70,130,180);">
+    <a class="navbar-brand" style="color:#fff" href="#">HIVseqDB</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" style="color:#fff" href="/home/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color:#fff" href="/analysis/create/">Create analysis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color:#fff" href="/analysis/results/">Browse analyses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="color:#fff" href="/analysis/minority-variants/Alfred101">Association analysis</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" style="color:#fff" href="#">Data browser</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mr-auto" style="color:#fff" href="/uploads/ngs-data/">Data upload</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mr-auto" style="color:#fff" href="/login/">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
 <div class="container-fluid"><br>
-</div>
-
 {% block content %}
 {% endblock %}
-
+</div>
 <footer class="footer rounded">
   <div class="container">
     <span class="text-light">

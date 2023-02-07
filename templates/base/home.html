@@ -8,75 +8,18 @@
 {% block css %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-<style>
-    .analysis-container {
-        height: 100%;
-        border-radius: 5px;
-        background-color:#F8F8F8; 
-        margin: auto;
-        padding-left: 5%;
-        padding-right: 5%;
-        padding-top: 50px;
-        padding-bottom: 50px;
-
-    }
-
-    .analysis-header {
-        border-radius: 0px;
-        border-bottom: 1px solid rgb(70,130,180); 
-    }
-    .icon {
-        color: black;
-        font-size: 70px;
-        padding-top: 50px ;
-        font-family: bold;
-    }
-
- .params {
-     margin: auto;
-     width: 90%;
-     align-items: center;
- }
- 
- label {
-    color:black;
-    font-weight: bold;
- }
- .asteriskField {
-     color:red;
- }
- 
-  p {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    font-size: medium;
-    }
-
- .card-title, .card-text {
-    text-align: center;
- }
-
-.row {
-    padding-bottom: 30px;
-}
-
-.btn-primary {
-    background-color: aqua;
-}
-
-</style>
 {% endblock %}
 
 {% block content %}
-<div class="analysis-container">
+<div class="container-fluid">
     <!-- Section header -->
-    <div class="analysis-header">
-        <!-- Icon and header text -->
-        <div class="icon">HIVseqDB</div>
+    <div class="row mt-3 pt-3 p-3 border-bottom border-info">
+        <h1><i class="fa fa-home" aria-hidden="true">&nbsp</i>HIVseqDB</h1>
     </div> 
-    <p>Portable webserver for management and analysis of NGS-based HIV Drug Resistance Data</p>
-
-    <div class="row">
+    <div class="row pt-2 mb-5 p-2 shadow">    
+        <p>Portable webserver for management and analysis of NGS-based HIV Drug Resistance Data</p>
+    </div>
+    <div class="row border p-5 shadow">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">

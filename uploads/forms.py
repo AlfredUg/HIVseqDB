@@ -62,7 +62,8 @@ class FastqUploadForm(ModelForm):
             helper.layout.append(
                 Field(field, wrapper_class='row')
             )
-        helper.layout.append(Submit('submit', 'Upload data to database', css_class='btn-success'))
+        helper.layout.append(Submit('submit', 'Submit', css_class='btn-success'))
+        helper.layout.append(Button('reset', 'Cancel', css_class='btn-danger'))
         helper.field_class='col-9'
         helper.label_class='col-3'
         helper.form_class = 'form-horizontal'
