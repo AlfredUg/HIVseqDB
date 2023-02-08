@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>HIVsedDB | Home</title>
+<title>HIVsedDB | Minority variants</title>
 {% endblock %}
 
 {% block content %}
@@ -50,90 +50,78 @@
               </form>
         </div>
     </div>
-    <div class="col-md-8 border p-3 shadow">
-        <div>
-            <h4>Number of samples with major drug resistance mutations</h4>
-            <hr>
-        </div>
-        <div>
-            <canvas id="myChart"></canvas>
-        </div>
-    </div>
-</div>
-<!-- End of first row -->
-<div class="row mt-3 pt-3 mr-auto">
-    <div class="col-md-4">
-        <div class="border p-3 shadow">
-            <h4>Low-abudance drug resistance mutations and virological failure</h4>
-            <hr>
-            Using logistic regression, we fit a model to check for association of Virological
-            response with minority resistance correcting for common confounding factors.
-            <hr>
-            <h5>Uadjusted analysis</h5>
-            <ul class="list-group">
-                <li class="list-group-item" style="border: none">Odds Ratio (OR):</li>
-                <li class="list-group-item" style="border: none">P-value:</li>
-            </ul>
-            <h5>Adjusted analysis</h5>
-            <ul class="list-group">
-                <li class="list-group-item" style="border: none">Odds Ratio (OR):</li>
-                <li class="list-group-item" style="border: none">P-value:</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-md-8 border p-3 shadow">
-        <div>
-            <h4>Number of samples with accessory drug resistance mutations</h4>
-            <hr>
-        </div>
-        <div>
-            <canvas id="myChart2"></canvas>
+    <!-- Column 2 for graph tabs -->
+    <div class="col-md-8 p-3 border shadow">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#major" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Major DRMs</button>
+              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#minor" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Minor DRMs</button>
+              <button class="nav-link" id="analysis-tab" data-toggle="tab" data-target="#analysis" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Association analysis</button>
+            </div>
+        </nav>
+          <div class="tab-content">
+            <div id="major" class="tab-pane fade show active mt-4">
+                <div id="major-drms-plot"></div>
+            </div>
+            <div id="minor" class="tab-pane fade mt-4">
+                <div id="minor-drms-plot"></div>
+            </div>
+            <div id="analysis" class="tab-pane fade mt-4">
+                <p>Analysis text will go here:</p>
+            </div>
         </div>
     </div>
 </div>
-<hr>
 {% endblock %}
 
-{% block js %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-          
+{% block js %}  
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script> 
 <script>
-const ctx = document.getElementById('myChart');
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-    labels: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R'],
-    datasets: [{
-        label: 'Virological success',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-    },{
-        label: 'Virological failure',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-    }]
-    }
-});
-</script>
-<script>
-const ctx2 = document.getElementById('myChart2');
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-        labels: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R'],
-        datasets: [{
-            label: 'Number of mutations',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-        }]
+    Highcharts.chart('major-drms-plot', {
+        chart: {
+            type: 'column'
         },
-        options: {
-        scales: {
-            y: {
-            beginAtZero: true
-            }
-        }
+        title: {
+            text: 'Number of samples with major drug resistance mutations'
+        },
+        xAxis: {
+            categories: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R']
+        },
+        series: [{
+            name: 'Virological failure',
+            data: [8, 5, 4, 10, 6, 12]
+        }, {
+            name: 'Virological success',
+            data: [2, 4, 1, 3, 1, 3]
+        }],
+        accessibility: {
+            enabled: false
         }
     });
-</script>
+  </script>
+
+<script>
+    Highcharts.chart('minor-drms-plot', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Number of samples with major drug resistance mutations'
+        },
+        xAxis: {
+            categories: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R']
+        },
+        series: [{
+            name: 'Virological failure',
+            data: [8, 5, 4, 10, 6, 12]
+        }, {
+            name: 'Virological success',
+            data: [2, 4, 1, 3, 1, 3]
+        }],
+        accessibility: {
+            enabled: false
+        }
+    });
+  </script>
 {% endblock %}
