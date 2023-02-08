@@ -5,10 +5,11 @@ from django.views import generic
 from analysis.forms import NewAnalysisForm
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from analysis.helpers import charts
 # Create your views here.
 
-class CreateNewAnalysisView(SuccessMessageMixin, generic.CreateView):
+class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     template_name = 'analysis/new-analysis.html'
     form_class = NewAnalysisForm
 
@@ -49,13 +50,13 @@ class CreateNewAnalysisView(SuccessMessageMixin, generic.CreateView):
               messages.success(self.request, 'We are on it! Your analysis is running in the background.')
               return HttpResponseRedirect(self.request.path_info)
 
-class AnalysisResultsView(generic.ListView):
+class AnalysisResultsView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
     queryset = AnalysisResults.objects.all().order_by('analysis_results_id')
     template_name = 'analysis/analysis-results.html'
     paginate_by = 10
 
-class ProjectAnalysisResultsDetailView(generic.ListView):
+class ProjectAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
     template_name = 'analysis/detailed-project-analysis-results.html'
     paginate_by = 10
@@ -63,7 +64,7 @@ class ProjectAnalysisResultsDetailView(generic.ListView):
     def get_queryset(self):
         return AnalysisResults.objects.filter(project_ID=self.kwargs['project_ID'])
 
-class SampleAnalysisResultsDetailView(generic.ListView):
+class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
     template_name = 'analysis/detailed-sample-analysis-results.html'
     paginate_by = 10
@@ -71,7 +72,7 @@ class SampleAnalysisResultsDetailView(generic.ListView):
     def get_queryset(self):
         return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample_ID'])
 
-class ProjectMinorityVariantsView(generic.ListView):
+class ProjectMinorityVariantsView(LoginRequiredMixin, generic.ListView):
     template_name = 'analysis/minority-variants.html'
 
     def get_queryset(self):

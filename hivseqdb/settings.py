@@ -29,7 +29,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -134,7 +133,6 @@ if not os.path.exists(STATIC_ROOT):
     os.makedirs(STATIC_ROOT)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media/'
 if not os.path.exists(MEDIA_ROOT):
@@ -161,3 +159,9 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
  }
+
+LOGIN_URL = 'login' # this is the name of the url
+
+LOGOUT_REDIRECT_URL = 'home' # this is the name of the url
+
+LOGIN_REDIRECT_URL = 'home' # this is the name of the url

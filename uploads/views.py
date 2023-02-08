@@ -4,6 +4,7 @@ from uploads.models import Project
 from uploads.forms import FastqUploadForm, SampleDataUploadForm
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -11,7 +12,7 @@ from uploads.tasks import process
 from uploads.models import Tasks
 #from celery.result import AsyncResult
 
-class CreateFastqUpload(SuccessMessageMixin, generic.CreateView):
+class CreateFastqUpload(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     template_name = 'uploads/upload-NGS-data.html'
     form_class = FastqUploadForm
 

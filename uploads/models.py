@@ -14,7 +14,7 @@ class Project(models.Model):
     Sequencing_Technology=models.CharField(max_length=50)
     Sequencing_Platform=models.CharField(max_length=50)
     Sequencing_Date=models.DateField(default=timezone.now)
-    fastq_File = models.FileField(upload_to=project_upload_path, blank=True, null=True)
+    fastq_File = models.FileField(upload_to=project_upload_path, blank=False, null=False)
     def get_absolute_url(self):
         return reverse('newAnalysisForm')
 

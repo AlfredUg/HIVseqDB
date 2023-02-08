@@ -19,7 +19,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.min.js"></script>
   
   <title>HIVsedDB</title>
-  <link rel=icon href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15/svgs/solid/virus.svg>
+  <link rel="icon" type="image/x-icon" href="{% static "base/logo.png" %}">
 <style>
   body{
     width: 90%;
@@ -32,7 +32,7 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light navbar-custom rounded sticky-top" style="background-color: rgb(70,130,180);">
-    <a class="navbar-brand" style="color:#fff" href="#">HIVseqDB</a>
+    <a class="navbar-brand" style="color:#fff" href="#"><img src="{% static "base/logo.png" %}" height="30px"> <strong>HIVseqDB</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -59,7 +59,11 @@
           <a class="nav-link mr-auto" style="color:#fff" href="/uploads/ngs-data/">Data upload</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mr-auto" style="color:#fff" href="/login/">Login</a>
+          {% if request.user.is_authenticated %}
+          <a class="nav-link" style="color:#fff" href="/logout/">Log out</a>
+          {% else %}
+          <a class="nav-link" style="color:#fff" href="/login/">Login</a>
+          {% endif %}
         </li>
       </ul>
     </div>

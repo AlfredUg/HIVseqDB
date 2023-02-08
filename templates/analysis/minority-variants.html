@@ -1,0 +1,139 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>HIVsedDB | Home</title>
+{% endblock %}
+
+{% block content %}
+<div class="row mt-3 pt-3 mr-auto">
+    <div class="col-md-4">
+        <div class="border p-3 shadow">
+            <h4>Select parameter</h4>
+            <hr>
+            <form>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Mutation frequency threshold</label>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>20</option>
+                    <option value=10>10</option>
+                    <option value=5>5</option>
+                    <option value=2>2</option>
+                </select>
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Mutation Category</label>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                    <option selected>All</option>
+                    <option value=Surveillance>Surveillance</option>
+                    <option value=Not-surveillance>Not-surveillance</option>
+                </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Minimum depth</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="E.g 100">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Gene</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Integrase</option>
+                        <option value=RT>Reverse Transcriptase</option>
+                        <option value=PR>Protease</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Viral load cut-off for virological failure</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Default: 1000">
+                </div>
+                  <input class="btn btn-success btn-block" type="submit" value="Update">
+              </form>
+        </div>
+    </div>
+    <div class="col-md-8 border p-3 shadow">
+        <div>
+            <h4>Number of samples with major drug resistance mutations</h4>
+            <hr>
+        </div>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+<!-- End of first row -->
+<div class="row mt-3 pt-3 mr-auto">
+    <div class="col-md-4">
+        <div class="border p-3 shadow">
+            <h4>Low-abudance drug resistance mutations and virological failure</h4>
+            <hr>
+            Using logistic regression, we fit a model to check for association of Virological
+            response with minority resistance correcting for common confounding factors.
+            <hr>
+            <h5>Uadjusted analysis</h5>
+            <ul class="list-group">
+                <li class="list-group-item" style="border: none">Odds Ratio (OR):</li>
+                <li class="list-group-item" style="border: none">P-value:</li>
+            </ul>
+            <h5>Adjusted analysis</h5>
+            <ul class="list-group">
+                <li class="list-group-item" style="border: none">Odds Ratio (OR):</li>
+                <li class="list-group-item" style="border: none">P-value:</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-8 border p-3 shadow">
+        <div>
+            <h4>Number of samples with accessory drug resistance mutations</h4>
+            <hr>
+        </div>
+        <div>
+            <canvas id="myChart2"></canvas>
+        </div>
+    </div>
+</div>
+<hr>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          
+<script>
+const ctx = document.getElementById('myChart');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+    labels: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R'],
+    datasets: [{
+        label: 'Virological success',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+    },{
+        label: 'Virological failure',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+    }]
+    }
+});
+</script>
+<script>
+const ctx2 = document.getElementById('myChart2');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+        labels: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R'],
+        datasets: [{
+            label: 'Number of mutations',
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1
+        }]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true
+            }
+        }
+        }
+    });
+</script>
+{% endblock %}
