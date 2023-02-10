@@ -23,10 +23,14 @@
     width: 90%;
     margin: auto;
   }
-  .nav-tabs .nav-item .nav-link.active {
-    background-color: #c0c5ca;
-    color: rgb(61, 147, 245);
-  }
+  .footer {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 1rem;
+      text-align: center;
+    }
 </style>
 </head>
 <body>
@@ -45,9 +49,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" style="color:#fff" href="/analysis/results/">Browse analyses</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="color:#fff" href="/analysis/minority-variants/Alfred101">Association analysis</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -72,13 +73,13 @@
 {% block content %}
 {% endblock %}
 </div>
-<footer class="footer rounded">
+<div class="footer rounded">
   <div class="container">
     <span class="text-light">
        Uganda Virus Research Institute &copy; 2021 - <script>document.write(new Date().getFullYear())</script>
     </span>
   </div>
-</footer>
+</div>
 
 </body>
 {% block js %}

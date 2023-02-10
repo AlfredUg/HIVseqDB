@@ -35,7 +35,7 @@
                 <td>{{result.drugName}}</td>
                 <td>{{result.drugScore}}</td>
                 <td>{{result.susceptibility}}</td>
-                <td><a href="{% url 'projectAnalysisResultsDetails' result.project_ID %}">{{result.project_ID}}</a></td>
+                <td><a href="{% url 'projectMinorityVariants' result.project_ID %}">{{result.project_ID}}</a></td>
             </tr>
             {% endfor %}
         </tbody>
