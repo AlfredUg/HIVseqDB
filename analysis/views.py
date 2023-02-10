@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from analysis.helpers import charts
 # Create your views here.
 
-class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
+class CreateNewAnalysisView(SuccessMessageMixin, generic.CreateView):
     template_name = 'analysis/new-analysis.html'
     form_class = NewAnalysisForm
 
@@ -50,13 +50,13 @@ class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.Cre
               messages.success(self.request, 'We are on it! Your analysis is running in the background.')
               return HttpResponseRedirect(self.request.path_info)
 
-class AnalysisResultsView(LoginRequiredMixin, generic.ListView):
+class AnalysisResultsView(generic.ListView):
     model = AnalysisResults
     queryset = AnalysisResults.objects.all().order_by('analysis_results_id')
     template_name = 'analysis/analysis-results.html'
     paginate_by = 10
 
-class ProjectAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
+class ProjectAnalysisResultsDetailView(generic.ListView):
     model = AnalysisResults
     template_name = 'analysis/detailed-project-analysis-results.html'
     paginate_by = 10
@@ -72,7 +72,7 @@ class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample_ID'])
 
-class ProjectMinorityVariantsView(LoginRequiredMixin, generic.ListView):
+class ProjectMinorityVariantsView(generic.ListView):
     template_name = 'analysis/minority-variants.html'
 
     def get_queryset(self):
