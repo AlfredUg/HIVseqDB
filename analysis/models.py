@@ -26,11 +26,11 @@ class NewAnalysis(models.Model):
 class AnalysisResults(models.Model):
     analysis_results_id=models.AutoField(primary_key=True)
     sample_ID=models.CharField(max_length=250)
-    drugClass=models.CharField(max_length=250)
-    drugName=models.CharField(max_length=250)
-    drugScore=models.DecimalField(decimal_places=2,max_digits=5)
-    susceptibility=models.CharField(max_length=250)
-    project_ID=models.CharField(max_length=250)
+    drugClass=models.CharField(max_length=250,null=True, blank=True)
+    drugName=models.CharField(max_length=250,null=True, blank=True)
+    drugScore=models.DecimalField(decimal_places=2,max_digits=5,null=True, blank=True)
+    susceptibility=models.CharField(max_length=250,null=True, blank=True)
+    project_ID=models.CharField(max_length=250,null=True, blank=True)
     #project_ID=models.ForeignKey(NewAnalysis, to_field="project_ID",db_column="project_ID",on_delete=models.CASCADE)
 
     def __str__(self):
