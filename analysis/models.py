@@ -30,7 +30,8 @@ class AnalysisResults(models.Model):
     drugName=models.CharField(max_length=250)
     drugScore=models.DecimalField(decimal_places=2,max_digits=5)
     susceptibility=models.CharField(max_length=250)
-    project_ID=models.ForeignKey(NewAnalysis, to_field="project_ID",db_column="project_ID",on_delete=models.CASCADE)
+    project_ID=models.CharField(max_length=250)
+    #project_ID=models.ForeignKey(NewAnalysis, to_field="project_ID",db_column="project_ID",on_delete=models.CASCADE)
 
     def __str__(self):
         return self.sample_ID
