@@ -35,6 +35,7 @@
 </div>
 <div class="mt-3 pt-3 border p-4 shadow">
     <form method="POST">
+    {{ form.errors }}
     {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -76,31 +77,35 @@
                   <div id="collapse1" class="panel-collapse collapse">
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="{{ form.minimum_Mutation_Frequency.id_for_label }}" class="form-label">{{ form.minimum_Mutation_Frequency.label }}: </label>
-                            <input name="{{ form.minimum_Mutation_Frequency.html_name }}" type="text" class="form-control" id="{{ form.minimum_Mutation_Frequency.id_for_label }}" placeholder="Default is 0.01" required>      
+                            <label for="{{ form.error_Rate.id_for_label }}" class="form-label">{{ form.error_Rate.label }}: </label>
+                            <input name="{{ form.error_Rate.html_name }}" type="text" class="form-control" id="{{ form.error_Rate.id_for_label }}" placeholder="Default is 0.01" required>      
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="{{ form.minimum_Read_Depth.id_for_label }}" class="form-label">{{ form.minimum_Read_Depth.label }}: </label>
-                            <input name="{{ form.minimum_Read_Depth.html_name }}" type="text" class="form-control" id="{{ form.minimum_Read_Depth.id_for_label }}" placeholder="Default is 100" required>     
+                            <label for="{{ form.length_Cutoff.id_for_label }}" class="form-label">{{ form.length_Cutoff.label }}: </label>
+                            <input name="{{ form.length_Cutoff.html_name }}" type="text" class="form-control" id="{{ form.length_Cutoff.id_for_label }}" placeholder="Default is 100" required>     
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="{{ form.consensus_Percentage.id_for_label }}" class="form-label">{{ form.consensus_Percentage.label }}: </label>
-                            <input name="{{ form.consensus_Percentage.html_name }}" type="text" class="form-control" id="{{ form.consensus_Percentage.id_for_label }}" placeholder="Default is 20" required>      
+                            <label for="{{ form.minimum_Allele_Count.id_for_label }}" class="form-label">{{ form.minimum_Allele_Count.label }}: </label>
+                            <input name="{{ form.minimum_Allele_Count.html_name }}" type="text" class="form-control" id="{{ form.minimum_Allele_Count.id_for_label }}" placeholder="Default is 20" required>      
                         </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="{{ form.minimum_Mutation_Frequency.id_for_label }}" class="form-label">{{ form.minimum_Mutation_Frequency.label }}: </label>
-                        <input name="{{ form.minimum_Mutation_Frequency.html_name }}" type="text" class="form-control" id="{{ form.minimum_Mutation_Frequency.id_for_label }}" placeholder="Default is 0.01" required>      
+                        <label for="{{ form.minimum_Variant_Quality.id_for_label }}" class="form-label">{{ form.minimum_Variant_Quality.label }}: </label>
+                        <input name="{{ form.minimum_Variant_Quality.html_name }}" type="text" class="form-control" id="{{ form.minimum_Variant_Quality.id_for_label }}" placeholder="Default is 0.01" required>      
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="{{ form.minimum_Read_Depth.id_for_label }}" class="form-label">{{ form.minimum_Read_Depth.label }}: </label>
-                        <input name="{{ form.minimum_Read_Depth.html_name }}" type="text" class="form-control" id="{{ form.minimum_Read_Depth.id_for_label }}" placeholder="Default is 100" required>     
+                        <label for="{{ form.score_Cutoff.id_for_label }}" class="form-label">{{ form.score_Cutoff.label }}: </label>
+                        <input name="{{ form.score_Cutoff.html_name }}" type="text" class="form-control" id="{{ form.score_Cutoff.id_for_label }}" placeholder="Default is 100" required>     
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="{{ form.consensus_Percentage.id_for_label }}" class="form-label">{{ form.consensus_Percentage.label }}: </label>
-                        <input name="{{ form.consensus_Percentage.html_name }}" type="text" class="form-control" id="{{ form.consensus_Percentage.id_for_label }}" placeholder="Default is 20" required>      
+                        <label for="{{ form.target_Coverage.id_for_label }}" class="form-label">{{ form.target_Coverage.label }}: </label>
+                        <input name="{{ form.target_Coverage.html_name }}" type="text" class="form-control" id="{{ form.target_Coverage.id_for_label }}" placeholder="Default is 20" required>      
                     </div>
+                    <div class="form-group col-md-10">
+                      <label for="{{ form.mutation_Database.id_for_label }}" class="form-label">{{ form.mutation_Database.label }}: </label>
+                      <input name="{{ form.mutation_Database.html_name }}" type="text" class="form-control" id="{{ form.mutation_Database.id_for_label }}" placeholder="HIVDB 9.2" required>      
+                  </div>
                 </div>
               </div>
         </div>
