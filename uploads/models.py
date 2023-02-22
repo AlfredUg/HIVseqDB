@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+import os 
 
 # Create your models here.
 def project_upload_path(instance, filename):
@@ -14,14 +15,41 @@ class Project(models.Model):
     Sequencing_Technology=models.CharField(max_length=50)
     Sequencing_Platform=models.CharField(max_length=50)
     Sequencing_Date=models.DateField(default=timezone.now)
-    fastq_File = models.FileField(upload_to=project_upload_path, blank=False, null=False)
+    fastq_Files = models.FileField(upload_to=project_upload_path, blank=False, null=False)
+    sample_File = models.FileField(blank=False, null=False)
+
+    def filename(self):
+        return os.path.basename(self.fastq_Files.path)
+
+    def filesize(self):
+        size=os.path.getsize(self.fastq_Files.path) / (1024 * 1024)
+        return round(size,2)
+
+    def samplename(self):
+        file_name=os.path.basename(self.fastq_Files.name)
+        return os.path.splitext(file_name)[0]
+
     def get_absolute_url(self):
         return reverse('newAnalysisForm')
 
-class SampleFile(models.Model):
-    sample_File = models.FileField(blank=True, null=True)
+class Sample(models.Model):
+    sample=models.AutoField(primary_key=True)
+    sampleName=models.CharField(max_length=250, unique=True)
+    samplingDate=models.DateField()
+    viralLoad=models.DecimalField(decimal_places=1,max_digits=10)
+    cd4=models.DecimalField(decimal_places=1,max_digits=10)
+    
+    gender=models.CharField(max_length=250)
+    age=models.IntegerField()
+    literacy=models.CharField(max_length=250)
+    employment=models.CharField(max_length=250)
+    riskFactors=models.CharField(max_length=250)
+    maritalStatus=models.CharField(max_length=250)
 
-
+    regimen=models.CharField(max_length=250)
+    regimenStart=models.DateField()
+    
+    project=models.CharField(max_length=250)
 
 class Tasks(models.Model):
     task_id = models.CharField(max_length=50)

@@ -9,89 +9,50 @@
 {% block css %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
 <style>
-    .analysis-container {
-        height: 100%;
-        width: 100%;
-        border-radius: 5px;
-        background-color:#F8F8F8; 
-        margin: auto;
-        padding-left: 5%;
-        padding-right: 5%;
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-    .instructions {
-    height: 100px;
-    width: 100%;
-    border-radius: 5px;
-    display: flex;
-/*    align-items: center; */
-    justify-content: center;
-    flex-direction: column;
-    border-bottom: 1px solid #E0E0E0;     
- }
-    .analysis-header {
-    height: 100px;
-    width: 100%;
-    border-radius: 0px;
-    display: flex;
-/*    align-items: center; */
-    justify-content: center;
-    flex-direction: column;
-    border-bottom: 1px solid rgb(70,130,180); 
-  /*  background-color:lightgrey; */
-
- }
- .icon {
-     color: black;
-     font-size: 40px;
-     font-family: bold;
- }
-
- .params {
-     margin: auto;
-     align-items: center;
- }
- 
- label {
+    label {
     color:black;
     font-weight: bold;
  }
- .asteriskField {
-     color:red;
- }
  
-
+ .asteriskField {
+  color: red;
+ }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="analysis-container">
-<div class="analysis-header">
-    <div class="icon">
-        <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-        &nbsp Upload sample metadata 
-    </div>
+{% for message in messages %}
+<div class="container-fluid p-0">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="True">&times;</span>
+    </button>
+    {{ message }}
+  </div>
 </div>
-<br><br>
-<div class="instructions">
-    <p><i class="fa fa-flag" aria-hidden="true"></i>
-        &nbsp Step 1: Choose a project ID whose data is already uploaded</p>
-    <p><i class="fa fa-flag" aria-hidden="true"></i>
-        &nbsp Step 2: Set analysis parameters using the parameters section below</p>
-    <p><i class="fa fa-flag" aria-hidden="true"></i>
-        &nbsp Step 3: Press the submit analysis button to start analysis</p> 
-    <br>
-</div>
-<br>
+{% endfor %}
 
-<div>
-    <div class="params">
-        {% crispy form %} 
-    </div>
+<div class="container-fluid">
+
+<div class="mt-3 pt-3 p-3 border-bottom border-info">
+    <h1><i class="fa fa-cloud-upload" aria-hidden="true">&nbsp</i>Upload sample meta-data </h1>
 </div>
-<br>
+
+<div class="mt-3 pt-3 p-4 shadow">
+    <ul>
+        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> Download a template for sample data <a href="#">here</a></p>
+        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Mandatory fields are shown in red in the template</p>
+        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Optional fields are shown in blue</p>
+        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>We recommend providing all fields</p>
+    </ul>
+</div>
+
+<div class="mt-3 pt-3 p-5 border shadow">
+    {% crispy form %} 
+</div>
+
 </div>
 <br>
 

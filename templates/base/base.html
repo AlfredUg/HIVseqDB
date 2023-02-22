@@ -52,8 +52,12 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" style="color:#fff" href="#">Data browser</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff" href="#">Data browser</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/browse/sample-data/">Sample data</a>
+            <a class="dropdown-item" href="/browse/ngs-data/">NGS data</a>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link mr-auto" style="color:#fff" href="/uploads/ngs-data/">Data upload</a>
@@ -73,13 +77,13 @@
 {% block content %}
 {% endblock %}
 </div>
-<div class="footer rounded">
+<!-- <div class="footer rounded">
   <div class="container">
     <span class="text-light">
        Uganda Virus Research Institute &copy; 2021 - <script>document.write(new Date().getFullYear())</script>
     </span>
   </div>
-</div>
+</div> -->
 
 </body>
 {% block js %}
