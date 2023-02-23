@@ -56,7 +56,7 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#major" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Major DRMs</button>
               <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#minor" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Minor DRMs</button>
-              <button class="nav-link" id="analysis-tab" data-toggle="tab" data-target="#analysis" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Association analysis</button>
+              <button class="nav-link" id="analysis-tab" data-toggle="tab" data-target="#analysis" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Tabular display</button>
             </div>
         </nav>
           <div class="tab-content">
@@ -67,7 +67,70 @@
                 <div id="minor-drms-plot"></div>
             </div>
             <div id="analysis" class="tab-pane fade mt-4">
-                <p>Analysis text will go here:</p>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Gene</th>
+                            <th>Category</th>
+                            <th>Surveillance</th>
+                            <th>Wild type</th>
+                            <th>Position</th>
+                            <th>Mutation</th>
+                            <th>Mutation frequency</th>
+                            <th>Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in page_obj %}
+                        <tr>
+                            <td>{{result.gene}}</td>
+                            <td>{{result.category}}</td>
+                            <td>{{result.surveillance}}</td>
+                            <td>{{result.wildtype}}</td>
+                            <td>{{result.position}}</td>
+                            <td>{{result.mutation}}</td>
+                            <td>{{result.mutation_frequency}}</td>
+                            <td>{{result.coverage}}</td>
+                            <!-- <td><a href="{% url 'projectMinorityVariants' result.project %}">{{result.project}}</a></td> -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+                    </li>
+                    {% endif %}
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            {{ i }}
+                            <span class="sr-only">(current)</span>
+                        </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
             </div>
         </div>
     </div>

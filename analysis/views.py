@@ -1,4 +1,4 @@
-from analysis.models import AnalysisResults, NewAnalysis  
+from analysis.models import AnalysisResults, NewAnalysis ,MinorityVariantsResult 
 from analysis.tasks import run_quasiflow
 from django.http import HttpResponseRedirect
 from django.views import generic
@@ -6,7 +6,6 @@ from analysis.forms import NewAnalysisForm
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from analysis.helpers import charts
 # Create your views here.
 
 class CreateNewAnalysisView(SuccessMessageMixin, generic.CreateView):
@@ -73,8 +72,10 @@ class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
         return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample_ID'])
 
 class ProjectMinorityVariantsView(generic.ListView):
+    model = MinorityVariantsResult
     template_name = 'analysis/minority-variants.html'
+    paginate_by = 5
 
     def get_queryset(self):
-        test_chart = charts()
-        return test_chart
+        return MinorityVariantsResult.objects.filter(project=self.kwargs['project'])
+

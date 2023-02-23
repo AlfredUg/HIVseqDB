@@ -1,8 +1,4 @@
-import panel_highcharts as ph
-import panel as pn
-pn.extension('highchart')
-
-from analysis.models import  AnalysisResults, NewAnalysis
+from analysis.models import  AnalysisResults, NewAnalysis, MinorityVariantsResult
 
 def update_analysis_results(df):
     for index, row in df.iterrows():
@@ -15,26 +11,20 @@ def update_analysis_results(df):
         project_ID=NewAnalysis.objects.get(project_ID=row['project_ID']), #take note of how to handle foreign keys in django
         )
 
-# function to create highcharts
-def charts():
-    configuration = {
-        "title": {"text": "Line Chart Pane"},
-        "series": [
-            {
-                "name": "Sales",
-                "data": [100, 250, 150, 400, 500],
-            }
-        ]
-    }
-    chart = ph.HighChart(object=configuration, sizing_mode= "stretch_width")
-    settings = pn.WidgetBox(
-        pn.Param(
-            chart,
-            parameters=["height", "width", "sizing_mode", "margin", "object", "event", ],
-                    widgets={"object": pn.widgets.LiteralInput, "event": pn.widgets.StaticText},
-            sizing_mode="fixed", show_name=False, width=250,
+def update_minority_variants(df):
+    for index, row in df.iterrows():
+        MinorityVariantsResult.objects.update_or_create(
+            chromosome=row['chromosome'],
+            gene=row['gene'],
+            category=row['category'],
+            surveillance=row['surveillance'], 
+            wildtype=row['wildtype'],
+            position=row['position'],
+            mutation=row['mutation'], 
+            mutation_frequency=row['mutation_frequency'],
+            coverage=row['coverage'],
+            sample=row['sample'],
+            project=row['project'] #take note of how to handle foreign keys in django
         )
-    )
-    pn.Row(settings, chart, sizing_mode="stretch_both")
 
-    return pn
+# function to create highcharts
