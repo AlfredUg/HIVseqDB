@@ -3,7 +3,7 @@ import subprocess
 import os
 import pandas as pd
 from celery import shared_task
-from analysis.helpers import update_analysis_results
+from analysis.helpers import update_analysis_results, update_minority_variants
 
 @shared_task
 def run_quasiflow(project):
@@ -22,6 +22,25 @@ def run_quasiflow(project):
     cmd=os.path.join(settings.BASE_DIR, 'scripts/runHIVDRanalysis.sh')
     subprocess.run(["sh", cmd, input, output])
     update_results(projectID=project)
+    update_minority(projectID=project)
+    return True
+
+@shared_task
+def update_minority(projectID):
+    """
+    This function takes the project ID,
+    creates a path to corresponding analysis results,
+    reads the analysis results of that particular project,
+    uses a helper function to update the database with analysis results. 
+    """
+    report_path=os.path.join(settings.BASE_DIR,'media/ngs/analyses/',projectID,'combined_minority_variants_report.csv')
+    df=pd.read_csv(report_path, delimiter=',')
+    df.columns=['chromosome', 'gene', 'category', 'surveillance', 'wildtype',
+                'position', 'mutation', 'mutation_frequency', 'coverage']
+    df['project']=projectID
+    df['sample']='None'
+    print(df)
+    update_minority_variants(df) 
     return True
 
 @shared_task
@@ -32,7 +51,7 @@ def update_results(projectID):
     reads the analysis results of that particular project,
     uses a helper function to update the database with analysis results. 
     """
-    report_path=os.path.join(settings.BASE_DIR,'media/ngs/analyses/',projectID,'combined_report.csv')
+    report_path=os.path.join(settings.BASE_DIR,'media/ngs/analyses/',projectID,'combined_hivdr_report.csv')
     df=pd.read_csv(report_path, delimiter=',')
     df.columns=['drugClass', 'drugName', 'drugScore', 'susceptibility', 'sample_ID']
     df['project_ID']=projectID
