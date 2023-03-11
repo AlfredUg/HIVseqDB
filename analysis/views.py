@@ -7,6 +7,10 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
+from analysis.helpers import project_gene_drms
+from django.shortcuts import render
+from django.core.paginator import Paginator
+
 
 class CreateNewAnalysisView(SuccessMessageMixin, generic.CreateView):
     template_name = 'analysis/new-analysis.html'
@@ -53,12 +57,12 @@ class AnalysisResultsView(generic.ListView):
     model = AnalysisResults
     queryset = AnalysisResults.objects.all().order_by('analysis_results_id')
     template_name = 'analysis/analysis-results.html'
-    paginate_by = 10
+    paginate_by = 5
 
 class ProjectAnalysisResultsDetailView(generic.ListView):
     model = AnalysisResults
     template_name = 'analysis/detailed-project-analysis-results.html'
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         return AnalysisResults.objects.filter(project_ID=self.kwargs['project_ID'])
@@ -66,7 +70,7 @@ class ProjectAnalysisResultsDetailView(generic.ListView):
 class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
     template_name = 'analysis/detailed-sample-analysis-results.html'
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample_ID'])
@@ -79,3 +83,27 @@ class ProjectMinorityVariantsView(generic.ListView):
     def get_queryset(self):
         return MinorityVariantsResult.objects.filter(project=self.kwargs['project'])
 
+    def get_context_data(self, **kwargs):
+
+        context=super().get_context_data(**kwargs)
+        context['mdrms']='' #Major DRMS
+        context['adrms']='' #accessory DRMS
+
+        return context
+
+def minority(request, project):
+
+    project_variants = MinorityVariantsResult.objects.filter(project=project)
+    paginator = Paginator(project_variants, 5)
+    page = request.GET.get('page', 1)
+    project_variants = paginator.page(page)
+    pr_drms = project_gene_drms(project, 'PR')
+    print(pr_drms)
+    context={
+        'pr_variants': pr_drms[0],
+        'pr_majority': pr_drms[1],
+        'pr_minority': pr_drms[2],
+        'project_variants': project_variants
+    }
+    print(context)
+    return render(request, 'analysis/minority-variants.html', context=context)

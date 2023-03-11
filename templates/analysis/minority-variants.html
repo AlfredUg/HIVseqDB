@@ -7,56 +7,13 @@
 
 {% block content %}
 <div class="row mt-3 pt-3 mr-auto">
-    <div class="col-md-4">
-        <div class="border p-3 shadow">
-            <h4>Select parameter</h4>
-            <hr>
-            <form>
-                <div class="form-group">
-                  <label for="formGroupExampleInput">Mutation frequency threshold</label>
-                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                    <option selected>20</option>
-                    <option value=10>10</option>
-                    <option value=5>5</option>
-                    <option value=2>2</option>
-                </select>
-                </div>
-                <div class="form-group">
-                  <label for="formGroupExampleInput2">Mutation Category</label>
-                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                    <option selected>All</option>
-                    <option value=Surveillance>Surveillance</option>
-                    <option value=Not-surveillance>Not-surveillance</option>
-                </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Minimum depth</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="E.g 100">
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Gene</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Integrase</option>
-                        <option value=RT>Reverse Transcriptase</option>
-                        <option value=PR>Protease</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Viral load cut-off for virological failure</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Default: 1000">
-                </div>
-                  <input class="btn btn-success btn-block" type="submit" value="Update">
-              </form>
-        </div>
-    </div>
     <!-- Column 2 for graph tabs -->
-    <div class="col-md-8 p-3 border shadow">
+    <div class="col-md-12 p-3 border shadow">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#major" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Major DRMs</button>
-              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#minor" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Minor DRMs</button>
-              <button class="nav-link" id="analysis-tab" data-toggle="tab" data-target="#analysis" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Tabular display</button>
+              <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#major" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Protease</button>
+              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#minor" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reverse transcriptase</button>
+              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#minor" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Integrase</button>
             </div>
         </nav>
           <div class="tab-content">
@@ -66,74 +23,73 @@
             <div id="minor" class="tab-pane fade mt-4">
                 <div id="minor-drms-plot"></div>
             </div>
-            <div id="analysis" class="tab-pane fade mt-4">
-
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Gene</th>
-                            <th>Category</th>
-                            <th>Surveillance</th>
-                            <th>Wild type</th>
-                            <th>Position</th>
-                            <th>Mutation</th>
-                            <th>Mutation frequency</th>
-                            <th>Coverage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for result in page_obj %}
-                        <tr>
-                            <td>{{result.gene}}</td>
-                            <td>{{result.category}}</td>
-                            <td>{{result.surveillance}}</td>
-                            <td>{{result.wildtype}}</td>
-                            <td>{{result.position}}</td>
-                            <td>{{result.mutation}}</td>
-                            <td>{{result.mutation_frequency}}</td>
-                            <td>{{result.coverage}}</td>
-                            <!-- <td><a href="{% url 'projectMinorityVariants' result.project %}">{{result.project}}</a></td> -->
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <hr>
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
-                    </li>
-                    {% endif %}
-                    {% for i in page_obj.paginator.page_range %}
-                    {% if page_obj.number == i %}
-                        <li class="page-item active" aria-current="page">
-                        <span class="page-link">
-                            {{ i }}
-                            <span class="sr-only">(current)</span>
-                        </span>
-                        </li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-                    {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
-                    </li>
-                    {% endif %}
-                </ul>
-
-            </div>
         </div>
     </div>
+</div>
+
+<div class="row mt-3 pt-3 mr-auto">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Gene</th>
+                <th>Category</th>
+                <th>Surveillance</th>
+                <th>Wild type</th>
+                <th>Position</th>
+                <th>Mutation</th>
+                <th>Mutation frequency</th>
+                <th>Coverage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in project_variants %}
+            <tr>
+                <td>{{result.gene}}</td>
+                <td>{{result.category}}</td>
+                <td>{{result.surveillance}}</td>
+                <td>{{result.wildtype}}</td>
+                <td>{{result.position}}</td>
+                <td>{{result.mutation}}</td>
+                <td>{{result.mutation_frequency}}</td>
+                <td>{{result.coverage}}</td>
+                <!-- <td><a href="{% url 'projectMinorityVariants' result.project %}">{{result.project}}</a></td> -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <ul class="pagination justify-content-center">
+        {% if project_variants.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ project_variants.previous_page_number }}">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+        </li>
+        {% endif %}
+        {% for i in project_variants.paginator.page_range %}
+        {% if project_variants.number == i %}
+            <li class="page-item active" aria-current="page">
+            <span class="page-link">
+                {{ i }}
+                <span class="sr-only">(current)</span>
+            </span>
+            </li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if project_variants.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ project_variants.next_page_number }}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+        </li>
+        {% endif %}
+    </ul>
 </div>
 {% endblock %}
 
@@ -141,6 +97,11 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script> 
 <script>
+    
+    pr_variants={{pr_variants|safe}};
+    pr_majority={{pr_majority|safe}};
+    pr_minority={{pr_minority|safe}};
+
     Highcharts.chart('major-drms-plot', {
         chart: {
             type: 'column'
@@ -149,14 +110,14 @@
             text: 'Number of samples with major drug resistance mutations'
         },
         xAxis: {
-            categories: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R']
+            categories: pr_variants
         },
         series: [{
-            name: 'Virological failure',
-            data: [8, 5, 4, 10, 6, 12]
+            name: 'Majority variants (>=20% MDT)',
+            data: pr_majority
         }, {
-            name: 'Virological success',
-            data: [2, 4, 1, 3, 1, 3]
+            name: 'Minority variants (<20% MDT)',
+            data: pr_minority
         }],
         accessibility: {
             enabled: false
