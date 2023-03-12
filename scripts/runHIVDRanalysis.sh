@@ -16,5 +16,8 @@ for sample in $(ls $input/*_1.fastq); do
     rm $output/align.bam $output/align.bam.bai $output/*.fastq $output/*.vcf    
 done
 
-cat $output/*_drugscores.csv > $output/combined_hivdr_report.csv
-cat $output/*_dr_report.csv > $output/combined_minority_variants_report.csv
+cat $output/*_drugscores.csv > $output/tmp_hivdr_report.csv
+grep -v "Drug" $output/tmp_hivdr_report.csv > $output/combined_hivdr_report.csv
+
+cat $output/*_dr_report.csv > $output/tmp_minority_variants_report.csv
+grep -v "Chromosome" $output/tmp_minority_variants_report.csv > $output/combined_minority_variants_report.csv
