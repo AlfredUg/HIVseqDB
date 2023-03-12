@@ -57,7 +57,9 @@ class AnalysisResultsView(generic.ListView):
     model = AnalysisResults
     queryset = AnalysisResults.objects.all().order_by('analysis_results_id')
     template_name = 'analysis/analysis-results.html'
-    paginate_by = 5
+    context_object_name = 'results'   
+
+    #paginate_by = 30
 
 class ProjectAnalysisResultsDetailView(generic.ListView):
     model = AnalysisResults
