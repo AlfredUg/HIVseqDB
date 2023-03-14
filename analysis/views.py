@@ -9,7 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from analysis.helpers import project_gene_drms
 from django.shortcuts import render
-from django.core.paginator import Paginator
+#from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 
 class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
@@ -95,6 +96,7 @@ class ProjectMinorityVariantsView(generic.ListView):
 
         return context
 
+@login_required
 def minority(request, project):
 
     project_variants = MinorityVariantsResult.objects.filter(project=project)
