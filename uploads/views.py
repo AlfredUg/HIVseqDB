@@ -13,8 +13,7 @@ from uploads.tasks import process
 from uploads.models import Tasks
 #from celery.result import AsyncResult
 
-#class CreateFastqUpload(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
-class CreateDataUpload(SuccessMessageMixin, generic.CreateView):
+class CreateDataUpload(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     template_name = 'uploads/upload-NGS-data.html'
     form_class = DataUploadForm
 

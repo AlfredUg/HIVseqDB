@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 
 
-class CreateNewAnalysisView(SuccessMessageMixin, generic.CreateView):
+class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     template_name = 'analysis/new-analysis.html'
     form_class = NewAnalysisForm
 
@@ -53,18 +53,18 @@ class CreateNewAnalysisView(SuccessMessageMixin, generic.CreateView):
               messages.success(self.request, 'We are on it! Your analysis is running in the background.')
               return HttpResponseRedirect(self.request.path_info)
 
-class AnalysisResultsView(generic.ListView):
+class AnalysisResultsView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
     queryset = AnalysisResults.objects.all().order_by('analysis_results_id')
     template_name = 'analysis/analysis-results.html'
     context_object_name = 'results'   
-
     #paginate_by = 30
 
 class ProjectAnalysisResultsDetailView(generic.ListView):
     model = AnalysisResults
     template_name = 'analysis/detailed-project-analysis-results.html'
-    paginate_by = 5
+    #paginate_by = 5
+    context_object_name = 'results'   
 
     def get_queryset(self):
         return AnalysisResults.objects.filter(project_ID=self.kwargs['project_ID'])
@@ -80,7 +80,9 @@ class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
 class ProjectMinorityVariantsView(generic.ListView):
     model = MinorityVariantsResult
     template_name = 'analysis/minority-variants.html'
-    paginate_by = 5
+    #paginate_by = 5
+    context_object_name = 'results'   
+
 
     def get_queryset(self):
         return MinorityVariantsResult.objects.filter(project=self.kwargs['project'])
@@ -96,16 +98,30 @@ class ProjectMinorityVariantsView(generic.ListView):
 def minority(request, project):
 
     project_variants = MinorityVariantsResult.objects.filter(project=project)
-    paginator = Paginator(project_variants, 5)
-    page = request.GET.get('page', 1)
-    project_variants = paginator.page(page)
+    #paginator = Paginator(project_variants, 5)
+    #page = request.GET.get('page', 1)
+    #project_variants = paginator.page(page)
     pr_drms = project_gene_drms(project, 'PR')
     print(pr_drms)
+    
+    rt_drms = project_gene_drms(project, 'RT')
+    print(rt_drms)
+    
+    #int_drms = project_gene_drms(project, 'IN')
+    #print(int_drms)
+
     context={
         'pr_variants': pr_drms[0],
         'pr_majority': pr_drms[1],
         'pr_minority': pr_drms[2],
+        'rt_variants': rt_drms[0],
+        'rt_majority': rt_drms[1],
+        'rt_minority': rt_drms[2],
         'project_variants': project_variants
+
+        #'int_variants': int_drms[0],
+        #'int_majority': int_drms[1],
+        #'int_minority': int_drms[2],
     }
     print(context)
     return render(request, 'analysis/minority-variants.html', context=context)

@@ -6,29 +6,40 @@
 {% endblock %}
 
 {% block content %}
+{% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    {% endfor %}
 <div class="row mt-3 pt-3 mr-auto">
     <!-- Column 2 for graph tabs -->
     <div class="col-md-12 p-3 border shadow">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#major" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Protease</button>
-              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#minor" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reverse transcriptase</button>
-              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#minor" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Integrase</button>
+              <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#pr" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Protease</button>
+              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#rt" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reverse transcriptase</button>
+              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#int" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Integrase</button>
             </div>
         </nav>
           <div class="tab-content">
-            <div id="major" class="tab-pane fade show active mt-4">
-                <div id="major-drms-plot"></div>
+            <div id="pr" class="tab-pane fade show active mt-4">
+                <div id="pr-drms-plot"></div>
             </div>
-            <div id="minor" class="tab-pane fade mt-4">
-                <div id="minor-drms-plot"></div>
+            <div id="rt" class="tab-pane fade mt-4">
+                <div id="rt-drms-plot"></div>
+            </div>
+            <div id="int" class="tab-pane fade mt-4">
+                <div id="int-drms-plot"></div>
             </div>
         </div>
     </div>
 </div>
 
 <div class="row mt-3 pt-3 mr-auto">
-    <table class="table table-striped">
+    <table id="hivdr" class="table table-striped">
         <thead>
             <tr>
                 <th>Gene</th>
@@ -39,6 +50,7 @@
                 <th>Mutation</th>
                 <th>Mutation frequency</th>
                 <th>Coverage</th>
+                <th>Project</th>
             </tr>
         </thead>
         <tbody>
@@ -52,30 +64,13 @@
                 <td>{{result.mutation}}</td>
                 <td>{{result.mutation_frequency}}</td>
                 <td>{{result.coverage}}</td>
+                <td>{{result.project}}</td>
                 <!-- <td><a href="{% url 'projectMinorityVariants' result.project %}">{{result.project}}</a></td> -->
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <hr>
-    <div class="pagination justify-content-center">
-        <span class="step-links">
-            {% if project_variants.has_previous %}
-                <a href="?page=1">&laquo; First</a>
-                <a href="?page={{ project_variants.previous_page_number }}">Previous</a>
-            {% endif %}
-    
-            <span class="current">
-                Page {{ project_variants.number }} of {{ project_variants.paginator.num_pages }}.
-            </span>
-    
-            {% if project_variants.has_next %}
-                <a href="?page={{ project_variants.next_page_number }}">Next</a>
-                <a href="?page={{ project_variants.paginator.num_pages }}">Last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-    
+    <hr>    
 </div>
 {% endblock %}
 
@@ -88,12 +83,12 @@
     pr_majority={{pr_majority|safe}};
     pr_minority={{pr_minority|safe}};
 
-    Highcharts.chart('major-drms-plot', {
+    Highcharts.chart('pr-drms-plot', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Number of samples with major drug resistance mutations'
+            text: 'Number of samples with drug resistance mutations in PR'
         },
         xAxis: {
             categories: pr_variants
@@ -112,26 +107,66 @@
   </script>
 
 <script>
-    Highcharts.chart('minor-drms-plot', {
+    
+    rt_variants={{rt_variants|safe}};
+    rt_majority={{rt_majority|safe}};
+    rt_minority={{rt_minority|safe}};
+
+    Highcharts.chart('rt-drms-plot', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Number of samples with major drug resistance mutations'
+            text: 'Number of samples with drug resistance mutations in RT'
         },
         xAxis: {
-            categories: ['E138A/D/K', 'Q148H/K/R', 'G140A/C/S', 'G163K/R', 'N155H/S', 'S230N/R']
+            categories: pr_variants
         },
         series: [{
-            name: 'Virological failure',
-            data: [8, 5, 4, 10, 6, 12]
+            name: 'Majority variants (>=20% MDT)',
+            data: pr_majority
         }, {
-            name: 'Virological success',
-            data: [2, 4, 1, 3, 1, 3]
+            name: 'Minority variants (<20% MDT)',
+            data: pr_minority
         }],
         accessibility: {
             enabled: false
         }
     });
+  </script>
+
+
+<script>
+    $(document).ready(function() {
+      var table = $('#hivdr').DataTable({
+         // select: true,
+          dom: 'BPrtip',
+          
+          buttons: [
+              'pageLength',
+              { extend: 'csv', text: '<i class="fa fa-file-csv" aria-hidden="true"></i> Export as CSV' },
+              { extend: 'excel', text: '<i class="fa fa-file-excel" aria-hidden="true"></i> Export as EXCEL' },
+              { extend: 'pdf', text: '<i class="fa fa-file-pdf" aria-hidden="true"></i> Export as PDF' },
+              { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Print' },
+          ],
+          columnDefs: [
+              {
+                  searchPanes: {
+                      initCollapsed: true,
+                  },
+                  targets: [0,1,2,4,5]
+              },
+              {
+                  searchPanes: {
+                      show: false
+                  },
+                  targets: [3]
+              }
+          ]
+  
+      });
+      table.searchPanes.container().prependTo(table.table().container());
+      table.searchPanes.resizePanes();
+  });
   </script>
 {% endblock %}
