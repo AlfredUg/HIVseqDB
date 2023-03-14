@@ -22,8 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1!2rz_@lrni)v54b0xg5n1dft(6+gzutyi(+##=egg6)aq2qg0'
-
+SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -155,9 +154,9 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
+        messages.INFO: 'alert-info', # for some reason this won't work
         messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
+        messages.WARNING: 'alert-info',
         messages.ERROR: 'alert-danger',
  }
 
