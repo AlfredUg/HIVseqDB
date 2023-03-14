@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'hivseqdb.org']
 
@@ -156,7 +156,7 @@ MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
         messages.INFO: 'alert-info', # for some reason this won't work
         messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-info',
+        messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
  }
 
