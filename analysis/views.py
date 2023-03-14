@@ -84,7 +84,6 @@ class ProjectMinorityVariantsView(generic.ListView):
     #paginate_by = 5
     context_object_name = 'results'   
 
-
     def get_queryset(self):
         return MinorityVariantsResult.objects.filter(project=self.kwargs['project'])
 
