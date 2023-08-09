@@ -39,7 +39,7 @@
                 <th>Project ID</th>
                 <th>Region sequenced</th>
                 <th>Sequencing platform</th>
-                <th>Sequencing date</th>
+                <!-- <th>Sequencing date</th> -->
                 <th>Fastq files</th>
                 <th>File size (MB)</th>
             </tr>
@@ -50,7 +50,7 @@
                 <td><a href="#">{{result.project_Name}}</a></td>
                 <td>{{result.Region_Sequenced}}</td>
                 <td>{{result.Sequencing_Platform}}</td>
-                <td>{{result.Sequencing_Date}}</td>
+                <!-- <td>{{result.Sequencing_Date}}</td> -->
                 <td><a href="{{result.fastq_Files.url}}">{{result.filename}}</a></td>
                 <td>{{result.filesize}}</td>
             </tr>
@@ -81,20 +81,11 @@
             {
                 searchPanes: {
                     initCollapsed: true,
-                },
-                targets: [0,1,2,3]
+                }
             },
-            {
-                searchPanes: {
-                    show: false
-                },
-               // targets: [3]
-            }
         ]
 
     });
-    table.searchPanes.container().prependTo(table.table().container());
-    table.searchPanes.resizePanes();
 });
 </script>
 {% endblock %}
