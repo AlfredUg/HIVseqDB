@@ -13,10 +13,10 @@ def run_quasiflow(project):
     similarly, it gets/creates the path for storing analysis results of the project,
     Initiates the HIVDR analysis and updates the database with analysis results
     """
-    #input=os.path.join(settings.MEDIA_ROOT,'ngs/projects/', project)
-    #output=os.path.join(settings.MEDIA_ROOT,'ngs/analyses/', project)
-    input=os.path.join(settings.BASE_DIR, 'media/ngs/projects/', project)
-    output=os.path.join(settings.BASE_DIR,'media/ngs/analyses/', project)
+    input=os.path.join(settings.MEDIA_ROOT,'ngs/projects/', project)
+    output=os.path.join(settings.MEDIA_ROOT,'ngs/analyses/', project)
+    #input=os.path.join(settings.BASE_DIR, 'media/ngs/projects/', project)
+    #output=os.path.join(settings.BASE_DIR,'media/ngs/analyses/', project)
     if not os.path.exists(output):
         os.makedirs(output)
     cmd=os.path.join(settings.BASE_DIR, 'scripts/runHIVDRanalysis.sh')
@@ -36,9 +36,9 @@ def update_minority(projectID):
     report_path=os.path.join(settings.BASE_DIR,'media/ngs/analyses/',projectID,'combined_minority_variants_report.csv')
     df=pd.read_csv(report_path, delimiter=',')
     df.columns=['chromosome', 'gene', 'category', 'surveillance', 'wildtype',
-                'position', 'mutation', 'mutation_frequency', 'coverage']
+                'position', 'mutation', 'mutation_frequency', 'coverage', 'sample']
     df['project']=projectID
-    df['sample']='None'
+    # df['sample']='None'
     print(df)
     update_minority_variants(df) 
     return True
