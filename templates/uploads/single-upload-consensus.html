@@ -1,0 +1,199 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>HIVseqDB | Single Sanger sequence upload</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<style>
+ label {
+    color:black;
+ }
+ 
+ astericks {
+  color: red;
+ }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    {% endfor %}
+  <div class="mt-3 pt-3 p-3 border shadow">
+      <div class="p-3 border-bottom border-info">
+          <h2><i class="fa fa-cloud-upload" aria-hidden="true">&nbsp</i>Upload a single consensus sequence</h2>
+      </div>
+  </div>
+<div class="mt-3 pt-3 border p-4 shadow">
+    <form method="POST">
+    {{ form.errors }}
+    {% csrf_token %}
+
+    <p><h5>Sample information</h5></p>
+    <hr>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+        <label for="sample_name" class="form-label"><astericks>*</astericks>Sample name</label>
+        <input name="sample_name" type="text" class="form-control" id="sample_name" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="sampling_date" class="form-label"><astericks>*</astericks>Sampling date</label>
+            <input name="sampling_date" type="date" class="form-control" id="sampling_date" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="sample_type" class="form-label"><astericks>*</astericks>Sample type</label>
+            <select class="form-control" id="sample_type">
+                <option>Plasma/serum</option>
+                <option>Dried blood spots (DBS)</option>
+                <option>Peripheral blood mononuclear cells (PBMCs)</option>
+            </select>          
+        </div>
+        <div class="form-group col-md-3">
+            <label for="tissue" class="form-label"><astericks>*</astericks>Sample tissue</label>
+            <input name="tissue" type="text" class="form-control" id="tissue" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="project" class="form-label"><astericks>*</astericks>Project</label>
+            <input name="project" type="text" class="form-control" id="project" placeholder="" required>
+        </div>
+        <div class="form-group col-md-9">
+            <label for="description" class="form-label"><astericks>*</astericks>Description</label>
+            <input name="description" type="text" class="form-control" id="description" placeholder="" required>
+        </div>
+      </div>
+      <hr>
+
+      <br>
+      <p><h5>Demographics information</h5></p>
+      <hr>
+
+      <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="gender" class="form-label"><astericks>*</astericks>Gender</label>
+            <select class="form-control" id="gender">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>          
+        </div>
+        <div class="form-group col-md-3">
+            <label for="age" class="form-label"><astericks>*</astericks>Age</label>
+            <input name="age" type="email" class="form-control" id="age" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="country" class="form-label"><astericks>*</astericks>Country</label>
+            <input name="country" type="email" class="form-control" id="country" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="city" class="form-label"><astericks>*</astericks>City</label>
+            <input name="city" type="text" class="form-control" id="city" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="literacy" class="form-label"><astericks>*</astericks>Literacy</label>
+            <input name="literacy" type="text" class="form-control" id="literacy" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="employment" class="form-label"><astericks>*</astericks>Employment</label>
+            <input name="employment" type="text" class="form-control" id="employment" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="marital_status" class="form-label"><astericks>*</astericks>Marital status</label>
+            <input name="marital_status" type="text" class="form-control" id="marital_status" placeholder="" required>
+        </div>
+      </div>
+      <hr>
+
+      <br>
+      <p><h5>Clinical information</h5></p>
+      <hr>
+      <div class="form-row">
+        <div class="form-group col-md-3">
+        <label for="risk" class="form-label"><astericks>*</astericks>Risk factors</label>
+        <input name="risk" type="text" class="form-control" id="risk" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="regimen" class="form-label"><astericks>*</astericks>Regimen</label>
+            <input name="regimen" type="email" class="form-control" id="regimen" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="regimen_start_date" class="form-label"><astericks>*</astericks>Regimen start date</label>
+            <input name="regimen_start_date" type="text" class="form-control" id="regimen_start_date" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="viral_load" class="form-label"><astericks>*</astericks>Viral load</label>
+            <input name="viral_load" type="text" class="form-control" id="viral_load" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="cd4" class="form-label"><astericks>*</astericks>CD4</label>
+            <input name="cd4" type="text" class="form-control" id="cd4" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="fiebig_stage" class="form-label"><astericks>*</astericks>Fiebig stage</label>
+            <input name="fiebig_stage" type="text" class="form-control" id="fiebig_stage" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="days_post_infection" class="form-label"><astericks>*</astericks>Days post infection</label>
+            <input name="days_post_infection" type="text" class="form-control" id="days_post_infection" placeholder="" required>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="health_status" class="form-label"><astericks>*</astericks>Health status</label>
+            <input name="health_status" type="text" class="form-control" id="health_status" placeholder="" required>
+        </div>
+      </div>
+      <hr>
+
+      <br>
+      <p><h5>Sequence information</h5></p>
+      <hr>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="region_sequenced" class="form-label"><astericks>*</astericks>Region sequenced</label>
+            <select class="form-control" id="region_sequenced">
+                <option>Integrase</option>
+                <option>Reverse transcriptase</option>
+                <option>Protease</option>
+                <option>Pol</option>
+                <option>Env</option>
+                <option>Gag</option>
+                <option>Near full length</option>
+            </select>        
+        </div>
+        <div class="form-group col-md-4">
+            <label for="region_sequenced" class="form-label"><astericks>*</astericks>Sequencing platform</label>
+            <select class="form-control" id="region_sequenced">
+                <option>Illumina MiSeq</option>
+                <option>Illumina NovaSeq</option>
+                <option>Sanger</option>
+                <option>Oxford Nanopore MiniIon</option>
+                <option>PacBio</option>
+            </select>         
+        </div>
+        <div class="form-group col-md-4">
+            <label for="sequencing_date" class="form-label"><astericks>*</astericks>Sequencing date</label>
+            <input name="sequence_date" type="date" class="form-control" id="sequencing_date" placeholder="" required>
+        </div>
+      </div>
+
+    <div class="form-row">
+    <div class="form-group col-md-12">
+            <label class="form-label" for="sequence"><astericks>*</astericks>Sequence</label>
+            <textarea class="form-control" rows="5" id="sequence"></textarea>
+        </div>
+    </div>
+      <button type="submit" class="btn btn-success">Upload Data</button>
+      <button type="reset" class="btn btn-danger">Cancel</button>
+    </form>
+</div>
+</div>
+<br>
+{% endblock %}
