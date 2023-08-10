@@ -56,6 +56,7 @@ class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.Cre
               analysis_instance.save() #save analysis parameters in database
               run_quasiflow.delay(project_ID) # run analysis in background
               messages.success(self.request, 'We are on it! Your analysis is running in the background.')
+              messages.success(self.request, 'Once the run is done, you can access results at:')
               return HttpResponseRedirect(self.request.path_info)
 
 class AnalysisResultsView(LoginRequiredMixin, generic.ListView):
@@ -65,22 +66,23 @@ class AnalysisResultsView(LoginRequiredMixin, generic.ListView):
     context_object_name = 'results'   
     #paginate_by = 30
 
-class ProjectAnalysisResultsDetailView(generic.ListView):
+class ProjectAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
-    template_name = 'analysis/detailed-project-analysis-results.html'
+    template_name = 'analysis/analysis-results.html'
     #paginate_by = 5
     context_object_name = 'results'   
 
     def get_queryset(self):
-        return AnalysisResults.objects.filter(project_ID=self.kwargs['project_ID'])
+        return AnalysisResults.objects.filter(project_ID=self.kwargs['project'])
 
 class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
-    template_name = 'analysis/detailed-sample-analysis-results.html'
-    paginate_by = 5
+    template_name = 'analysis/analysis-results.html'
+    context_object_name = 'results'   
+    #paginate_by = 5
 
     def get_queryset(self):
-        return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample_ID'])
+        return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample'])
 
 class ProjectMinorityVariantsView(generic.ListView):
     model = MinorityVariantsResult
