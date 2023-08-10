@@ -190,11 +190,11 @@ def drug_resistance_report(request, sample):
     # url = "https://raw.githubusercontent.com/AlfredUg/ngs_hivdb/master/DRR030218.json"
     # json_response = requests.get(url)
     # data = json.loads(json_response.text)
-
-    project = 'Demo3'
-
+    # Using the sample ID, look through analysis results and get a corresponding project ID
+    project = ''.join(AnalysisResults.objects.filter(sample_ID=sample).values('project_ID')[1].values())
+    # look up corresponding JSON file in the analyses directory
     json_report_path=os.path.join(settings.MEDIA_ROOT,'ngs/analyses/', project, sample+'.json')
-
+    # read the json and generate report
     json_report = open(json_report_path)
     data = json.load(json_report)
     seqName=data[0]['inputSequence']['header']
