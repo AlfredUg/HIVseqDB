@@ -17,7 +17,7 @@ class SampleView(LoginRequiredMixin, generic.ListView):
 
 class NGSdataView(LoginRequiredMixin, generic.ListView):
     model = Project
-    queryset = Project.objects.all().order_by('project_ID')
+    queryset = Project.objects.all().order_by('projectID')
     template_name = 'search/ngs-data.html'
     #paginate_by = 10
     context_object_name = 'results'

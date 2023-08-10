@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -54,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'hivseqdb.urls'
@@ -145,6 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Celery settings
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

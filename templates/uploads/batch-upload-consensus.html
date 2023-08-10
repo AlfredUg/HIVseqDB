@@ -9,7 +9,6 @@
 {% block css %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-
 <style>
     label {
     color:black;
@@ -35,17 +34,17 @@
 {% endfor %}
 
 <div class="container-fluid">
-
-<div class="mt-3 pt-3 p-3 border-bottom border-info">
-    <h1><i class="fa fa-cloud-upload" aria-hidden="true">&nbsp</i>Upload sample meta-data </h1>
-</div>
+  <div class="mt-3 pt-3 p-3 border shadow">
+    <div class="p-3 border-bottom border-info">    
+      <h2><i class="fa fa-cloud-upload" aria-hidden="true">&nbsp</i>Batch upload of consensus sequences</h2>
+  </div> 
+</div> 
 
 <div class="mt-3 pt-3 p-4 shadow">
-    <ul>
-        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> Download a template for sample data <a href="#">here</a></p>
-        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Mandatory fields are shown in red in the template</p>
-        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Optional fields are shown in blue</p>
-        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>We recommend providing all fields</p>
+  <ul>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> Download a template for sample data <a href="https://github.com/AlfredUg/hivseqdb-docker/raw/main/data/Santiago_Nicagura_2016.csv">here</a>.</p>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> HIVseqDB currently supports paired-end FASTQ files.</p>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> Sequences should be in FASTA format.</p>
     </ul>
 </div>
 

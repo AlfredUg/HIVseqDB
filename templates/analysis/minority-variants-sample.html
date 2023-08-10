@@ -18,7 +18,7 @@
 <div class="row mt-3 pt-3 p-3 border shadow">
     <div class="col-md-12">
         <div class="p-3 border-bottom border-info">
-            <h2><i class="fa fa-list" aria-hidden="true">&nbsp</i>Majority and Minority HIV-1 Drug Resistance Variants</h2>
+            <h2><i class="fa fa-list" aria-hidden="true">&nbsp</i>Minority HIV-1 Drug Resistance Variants</h2>
         </div>
     </div>
 </div>
@@ -33,28 +33,32 @@
         </nav>
         <div class="tab-content">
             <div id="pr" class="tab-pane fade show active mt-4">
-                <div id="pr-drms-plot"></div>
+                <div id="pr-major-drms-plot"></div>
+                <div id="pr-minor-drms-plot"></div>
             </div>
             <div id="rt" class="tab-pane fade mt-4">
-                <div id="rt-drms-plot"></div>
+                <div id="nrti-drms-plot"></div>
+                <div id="nnrti-drms-plot"></div>
             </div>
             <div id="int" class="tab-pane fade mt-4">
-                <div id="int-drms-plot"></div>
+                <div id="in-major-drms-plot"></div>
+                <div id="in-minor-drms-plot"></div>
             </div>
         </div>
     </div>
 </div>
 
 <div class="row mt-3 pt-3 p-3 border shadow">
-    <table id="hivdr" class="table table-striped">
+    <div class="col-md-12">
+    <table id="hivdr" class="table table-striped nowrap">
         <thead>
             <tr>
                 <th>Sample</th>
                 <th>Gene</th>
                 <th>Category</th>
                 <th>Surveillance</th>
-                <th>Wild type</th>
-                <th>Position</th>
+                <!-- <th>Wild type</th> -->
+                <!-- <th>Position</th> -->
                 <th>Mutation</th>
                 <th>Mutation frequency</th>
                 <th>Coverage</th>
@@ -62,23 +66,24 @@
             </tr>
         </thead>
         <tbody>
-            {% for result in project_variants %}
+            {% for result in sample_variants %}
             <tr>
-                <td><a href="{% url 'sampleMinorityVariants' result.sample %}">{{result.sample}}</a></td> 
+                <td><a href="#">{{result.sample}}</a></td>
                 <td>{{result.gene}}</td>
                 <td>{{result.category}}</td>
                 <td>{{result.surveillance}}</td>
-                <td>{{result.wildtype}}</td>
-                <td>{{result.position}}</td>
-                <td>{{result.mutation}}</td>
+                <!-- <td>{{result.wildtype}}</td> -->
+                <!-- <td>{{result.position}}</td> -->
+                <td>{{result.wildtype}}{{result.position}}{{result.mutation}}</td>
                 <td>{{result.mutation_frequency}}</td>
                 <td>{{result.coverage}}</td>
                 <td>{{result.project}}</td>
-                <!-- <td><a href="{% url 'sampleMinorityVariants' result.project %}">{{result.project}}</a></td> -->
+                <!-- <td><a href="{% url 'projectMinorityVariants' result.project %}">{{result.project}}</a></td> -->
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    </div>
     <hr>    
 </div>
 </div>
@@ -89,26 +94,37 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script> 
 <script>
     
-    pr_variants={{pr_variants|safe}};
     pr_majority={{pr_majority|safe}};
-    pr_minority={{pr_minority|safe}};
+    pr_majority_freq={{pr_majority_freq|safe}};
+    pr_majority_cov={{pr_majority_cov|safe}};
 
-    Highcharts.chart('pr-drms-plot', {
+    Highcharts.chart('pr-major-drms-plot', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Number of samples with drug resistance mutations in PR'
+            text: 'Frequency of Major Drug Resistance Mutations  in PR'
         },
         xAxis: {
-            categories: pr_variants
+            categories: pr_majority
+        },
+        yAxis: {
+               min: 0,
+               title: {
+                  text: 'Mutation frequency and coverage',
+                //   align: 'high'
+               },
+               labels: {
+                  overflow: 'justify'
+               }
         },
         series: [{
-            name: 'Majority variants (>=20% MDT)',
-            data: pr_majority
-        }, {
-            name: 'Minority variants (<20% MDT)',
-            data: pr_minority
+            name: 'Mutation frequency',
+            data: pr_majority_freq
+        },
+        {
+            name: 'Coverage',
+            data: pr_majority_cov
         }],
         accessibility: {
             enabled: false
@@ -117,27 +133,37 @@
   </script>
 
 <script>
-    
-    rt_variants={{rt_variants|safe}};
-    rt_majority={{rt_majority|safe}};
-    rt_minority={{rt_minority|safe}};
+    pr_minority={{pr_minority|safe}};
+    pr_minority_freq={{pr_minority_freq|safe}};
+    pr_minority_cov={{pr_minority_cov|safe}};
 
-    Highcharts.chart('rt-drms-plot', {
+    Highcharts.chart('pr-minor-drms-plot', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Number of samples with drug resistance mutations in RT'
+            text: 'Frequency of Accessory Drug Resistance Mutations  in PR'
         },
         xAxis: {
-            categories: pr_variants
+            categories: pr_minority
+        },
+        yAxis: {
+               min: 0,
+               title: {
+                  text: 'Mutation frequency and coverage',
+                //   align: 'high'
+               },
+               labels: {
+                  overflow: 'justify'
+               }
         },
         series: [{
-            name: 'Majority variants (>=20% MDT)',
-            data: pr_majority
-        }, {
-            name: 'Minority variants (<20% MDT)',
-            data: pr_minority
+            name: 'Mutation frequency',
+            data: pr_minority_freq
+        },
+        {
+            name: 'Coverage',
+            data: pr_minority_cov
         }],
         accessibility: {
             enabled: false
@@ -145,6 +171,83 @@
     });
   </script>
 
+<script>
+    rt_nrti={{rt_nrti|safe}};
+    rt_nrti_freq={{rt_nrti_freq|safe}};
+    rt_nrti_cov={{rt_nrti_freq|safe}};
+
+    Highcharts.chart('nrti-drms-plot', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Frequency of NRTI Drug Resistance Mutations RT'
+        },
+        xAxis: {
+            categories: rt_nrti
+        },
+        yAxis: {
+               min: 0,
+               title: {
+                  text: 'Mutation frequency and coverage',
+                //   align: 'high'
+               },
+               labels: {
+                  overflow: 'justify'
+               }
+        },
+        series: [{
+            name: 'Mutation frequency',
+            data: rt_nrti_freq
+        },
+        {
+            name: 'Coverage',
+            data: rt_nrti_cov
+        }],
+        accessibility: {
+            enabled: false
+        }
+    });
+  </script>
+
+<script>
+    rt_nnrti={{rt_nnrti|safe}};
+    rt_nnrti_freq={{rt_nnrti_freq|safe}};
+    rt_nnrti_cov={{rt_nnrti_freq|safe}};
+
+    Highcharts.chart('nnrti-drms-plot', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Frequency of NNRTI Drug Resistance Mutations in RT'
+        },
+        xAxis: {
+            categories: rt_nnrti
+        },
+        yAxis: {
+               min: 0,
+               title: {
+                  text: 'Mutation frequency and coverage',
+                //   align: 'high'
+               },
+               labels: {
+                  overflow: 'justify'
+               }
+        },
+        series: [{
+            name: 'Mutation frequency',
+            data: rt_nnrti_freq
+        },
+        {
+            name: 'Coverage',
+            data: rt_nnrti_cov
+        }],
+        accessibility: {
+            enabled: false
+        }
+    });
+  </script>
 
 <script>
     $(document).ready(function() {
@@ -163,14 +266,15 @@
               {
                   searchPanes: {
                       initCollapsed: true,
+                      show: true,
                   },
-                  targets: [0,1,2,4,5]
+                  targets: [1,2,3,4]
               },
               {
                   searchPanes: {
                       show: false
                   },
-                  targets: [3]
+                  targets: [0,5,6,7]
               }
           ]
   

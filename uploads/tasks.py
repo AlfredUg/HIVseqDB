@@ -1,19 +1,34 @@
-from hivseqdb.celery import app
-from uploads.models import Tasks
-from time import sleep
-import random
+from celery import shared_task
+from uploads.models import Project, Sample
 
-@app.task(bind=True)
-def process(self, job_name=None):
+@shared_task
+def populate_samples(df, projectName):
+    for index, row in df.iterrows():
+        sampleInstance=Sample(
+            sampleName=row['sampleName'],
+            samplingDate=row['samplingDate'],
+            viralLoad=row['viralLoad'],
+            cd4=row['cd4'],
+            gender=row['gender'],
+            age=row['age'],
+            literacy=row['literacy'],
+            employment=row['employment'],
+            riskFactors=row['riskFactors'],
+            maritalStatus=row['maritalStatus'],
+            regimen=row['regimen'],
+            regimenStart=row['regimenStart'],
+            project=projectName)
+        sampleInstance.save()
+    return True
 
-    b = Tasks(task_id=self.request.id, job_name=job_name)
-    b.save()
-
-    self.update_state(state='Dispatching', meta={'progress': '33'})
-    sleep(random.randint(5, 10))  # pre-processing the dataset in machine learning pipeline,...
-
-    self.update_state(state='Running', meta={'progress': '66'})
-    sleep(random.randint(5, 10))  # training the algorithm,...
-
-    self.update_state(state='Finishing', meta={'progress': '100'})
-    sleep(random.randint(5, 10))
+@shared_task
+def populate_fastq_files(fastqFiles, projectName, Region_Sequenced, Sequencing_Platform, Sequencing_Date):
+    for file in fastqFiles:
+        project_instance = Project(
+            fastq_Files=file, 
+            project_Name=projectName,
+            Region_Sequenced=Region_Sequenced,
+            Sequencing_Platform=Sequencing_Platform,
+            Sequencing_Date=Sequencing_Date)
+        project_instance.save()
+    return True

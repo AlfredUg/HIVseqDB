@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('analysis.urls')),
     path('', include('search.urls')),
     path('', include('base.urls')),
+    path('', include('report.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
