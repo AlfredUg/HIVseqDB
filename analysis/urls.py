@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from analysis.views import * #minority, CreateNewAnalysisView, AnalysisResultsView, ProjectAnalysisResultsDetailView, SampleAnalysisResultsDetailView, ProjectMinorityVariantsView
+from analysis.views import *
 
 urlpatterns = [
     path('analysis/create/', CreateNewAnalysisView.as_view(), name='newAnalysisForm'),

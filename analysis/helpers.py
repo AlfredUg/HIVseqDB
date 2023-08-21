@@ -1,4 +1,5 @@
 from analysis.models import  AnalysisResults, NewAnalysis, MinorityVariantsResult
+from uploads.models import Sample
 import pandas as pd
 import numpy as np
 
@@ -10,7 +11,7 @@ def update_analysis_results(df):
         drugName=row['drugName'],
         drugScore=row['drugScore'], 
         susceptibility=row['susceptibility'],
-        project_ID=NewAnalysis.objects.get(project_ID=row['project_ID']), #take note of how to handle foreign keys in django
+        project_ID=row['project_ID']#NewAnalysis.objects.get(project_ID=row['project_ID']), #take note of how to handle foreign keys in django
         )
 
 def update_minority_variants(df):
@@ -48,8 +49,16 @@ def project_gene_drms(project, gene):
 def sample_gene_drms(sample, gene):
     
     variants=MinorityVariantsResult.objects.filter(sample=sample, gene=gene)
-    pdmv=pd.DataFrame.from_records(variants.values())
+    sample_df = pd.DataFrame.from_records(Sample.objects.filter(sampleName=sample).values())
+    variants_df=pd.DataFrame.from_records(variants.values())
+
+    pdmv = pd.merge(sample_df,variants_df, left_on='sampleName', right_on='sample')
+    
+    #change the next line to mutational load
+    pdmv['coverage'] = pdmv['viralLoad'].multiply(pdmv['mutation_frequency'],axis="index")
+
     pdmv['variant']=pdmv['wildtype']+pdmv['position'].astype(str)+pdmv['mutation']
+    
     tmp = pdmv[['category', 'variant', 'mutation_frequency', 'coverage']]
 
     minor=[]

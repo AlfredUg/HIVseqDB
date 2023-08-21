@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from analysis.models import NewAnalysis  
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Field, Layout, HTML, Submit, Button  
+from crispy_forms.layout import Field, Layout, Submit, Button  
 
 class NewAnalysisForm(ModelForm):
     class Meta:  

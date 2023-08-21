@@ -56,7 +56,7 @@ class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.Cre
               analysis_instance.save() #save analysis parameters in database
               run_quasiflow.delay(project_ID) # run analysis in background
               messages.success(self.request, 'We are on it! Your analysis is running in the background.')
-              messages.success(self.request, 'Once the run is done, you can access results at:')
+              #messages.success(self.request, 'Once the run is done, you can access results at:')
               return HttpResponseRedirect(self.request.path_info)
 
 class AnalysisResultsView(LoginRequiredMixin, generic.ListView):
