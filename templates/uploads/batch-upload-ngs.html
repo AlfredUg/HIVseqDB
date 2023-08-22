@@ -34,6 +34,12 @@
 {% endfor %}
 
 <div class="container-fluid">
+  
+  <div class="alert alert-info alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Info!</strong>   This instance only allows browsing of already analysed data. To upload and analyse own data, kindly install an instance as indicated in the documentation.
+  </div>
+
   <div class="mt-3 pt-3 p-3 border shadow">
     <div class="p-3 border-bottom border-info">    
       <h2><i class="fa fa-cloud-upload" aria-hidden="true">&nbsp</i>Batch Upload of NGS Data and corresponding sample data </h2>
@@ -43,8 +49,9 @@
 <div class="mt-3 pt-3 p-4 shadow">
   <ul>
       <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> Download a template for sample data <a href="https://github.com/AlfredUg/hivseqdb-docker/raw/main/data/Santiago_Nicagura_2016.csv">here</a>.</p>
-      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> HIVseqDB currently supports paired-end FASTQ files.</p>
-      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> We recommed that FASTQ files be named as follows: <Strong>sampleId_1.fastq</Strong> and <Strong>sampleId_2.fastq</Strong> for forward and reverse reads respectively.</p>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> HIVseqDB currently supports paired-end NGS data as compressed or un-compressed FASTQ files (.fastq, .fastq.gz, .fq, .fq.gz).</p>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> We recommed that FASTQ files be named as follows: <Strong>sampleName_1.fastq</Strong> and <Strong>sampleName_2.fastq</Strong> for forward and reverse reads respectively.</p>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> Sample names in the sample data file should match with sample names in the .fastq or fastq.gz file names.</p>    
     </ul>
 </div>
 
