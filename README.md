@@ -16,8 +16,14 @@ HIVseqDB requires **docker** to pull and run the containerised services, if you 
 
 Download HIVseqDB from GitHub.
 ```bash
-git clone https://github.com/AlfredUg/hivseqdb-docker.git
-cd hivseqdb-docker
+git clone https://github.com/AlfredUg/HIVseqDB.git
+cd HIVseqDB
+```
+
+Change over to the docker branch
+
+```bash
+git checkout docker
 ```
 
 First, build HIVseqDB using the `docker-compose` command.
