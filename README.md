@@ -2,13 +2,6 @@
 
 ## Working with the development version
 
-Create a virtual environment and activate it.
-
-```
-virtualenv create hivseqdb_env
-source hivseqdb_env/bin/activate
-```
-
 Clone this repository.
 
 ```
@@ -19,6 +12,13 @@ Navigate to the cloned repository
 
 ```
 cd HIVseqDB
+```
+
+Create a virtual environment and activate it.
+
+```
+python3 -m venv venv    
+source venv/bin/activate
 ```
 
 Install dependancies
