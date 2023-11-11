@@ -1,4 +1,3 @@
-# HIVSeqDB
 
 [![](https://img.shields.io/badge/uses-docker-orange)](https://docs.docker.com/get-docker)
 [![](https://img.shields.io/badge/uses-conda-yellowgreen)](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
@@ -65,8 +64,6 @@ python -m celery -A hivseqdb worker
 
 
 ## Working with the Docker version
-
-# Quick installation
 
 HIVseqDB requires **docker** to pull and run the containerised services, if you have docker available, proceed to next steps. Otherwise, install it from [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/).
 
@@ -141,17 +138,17 @@ Follow the instructions as demonstrated in the video to upload, analyse and brow
 Below is the list of key tools that are used by HIVseqDB. See `requirements.txt` for other dependancies.
 
 Web, server, data management
-+ [Django](#)
-+ [Redis](#)
-+ [Celery](#)
-+ [Postgres](#)
-+ [Nginx](#)
-+ [Gunicorn](#)
++ [Django](https://www.djangoproject.com/)
++ [Redis](https://redis.io/)
++ [Celery](https://docs.celeryq.dev/)
++ [PostgreSQL](https://www.postgresql.org/)
++ [Nginx](https://www.nginx.com/)
++ [Gunicorn](https://gunicorn.org/)
 
 HIVseqDB UI/UX
-+ [Data tables](#)
-+ [Bootstrap](#)
-+ [Highcharts](#)
++ [Data tables](https://datatables.net/)
++ [Bootstrap](https://getbootstrap.com/)
++ [Highcharts](https://www.highcharts.com/)
 
 Analysis of HIV drug resistance
 + [Quasitools](https://phac-nml.github.io/quasitools/)
