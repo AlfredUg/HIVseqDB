@@ -141,36 +141,11 @@ input[type="submit"]:hover{
         <div>
             <input type="submit" value="Log In">
         </div>
-      </form>
-      <hr>
-        <div class="signup_link">
-          <button type="button" class="collapsible"><a>Continue as Guest?</a></button>
-          <div class="content">
-            <br>
-            <p>Username: guest, Password: H9p#a7!4</p>
-          </div>
-      </div>
+      </form>        
       <hr>
         <div class="signup_link">
           <a href="/home/">Home</a>
         </div>
     </div>
   </body>
-
-  <script>
-    var coll = document.getElementsByClassName("collapsible");
-var i;
-
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
-  </script>
 </html>
