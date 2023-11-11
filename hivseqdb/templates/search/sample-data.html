@@ -1,0 +1,115 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>HIVseqDB | Sample data browser</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    {% endfor %}
+  
+<div class="mt-3 pt-3 p-3 border shadow">
+    <div class="p-3 border-bottom border-info">
+        <h2><i class="fa fa-search" aria-hidden="true">&nbsp</i>Browse sample metadata</h2>
+    </div>
+</div>
+
+<div class="mt-3 pt-3 p-4 shadow">
+    <ul>
+        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Use the filters to customize the search.</p>
+        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Download data in desired format using the export buttons.</p>
+        <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Use the <a href="#">advanced search interface</a>  for a more refined search.</p>
+    </ul>
+  </div>
+
+<!-- <div class="mt-3 pt-3 p-4 shadow">
+  <ul>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i> Download a template for sample data <a href="#">here</a></p>
+      <p><i class="fa fa-list" aria-hidden="true">&nbsp</i>Mandatory fields are shown in red in the template</p>
+  </ul>
+</div> -->
+
+<div class="mt-3 pt-3 border p-4 shadow">
+    <table id="samples" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sample</th>
+                <th>Date</th>
+                <th>Viral load</th>
+                <th>CD4</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Literacy</th>
+                <th>Employment</th>
+                <th>Marital status</th>
+                <th>Risk factors</th>
+                <th>Project</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{result.sampleName}}</td>
+                <td>{{result.samplingDate}}</td>
+                <td>{{result.viralLoad}}</td>
+                <td>{{result.cd4}}</td>
+                <td>{{result.age}}</td>
+                <td>{{result.gender}}</td>
+                <td>{{result.literacy}}</td>
+                <td>{{result.employment}}</td>
+                <td>{{result.maritalStatus}}</td>
+                <td>{{result.riskFactors}}</td>
+                <td><a href="#">{{result.project}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+</div>
+</div>
+<br>
+
+{% endblock %}
+
+{% block js %}
+<script>
+  $(document).ready(function() {
+    var table = $('#samples').DataTable({
+        select: true,
+        dom: 'BPrtip',
+        
+        buttons: [
+            'pageLength',
+            { extend: 'csv', text: '<i class="fa fa-file-csv" aria-hidden="true"></i> Export as CSV' },
+            { extend: 'excel', text: '<i class="fa fa-file-excel" aria-hidden="true"></i> Export as EXCEL' },
+            { extend: 'pdf', text: '<i class="fa fa-file-pdf" aria-hidden="true"></i> Export as PDF' },
+            { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Print' },
+        ],
+        columnDefs: [
+            {
+                searchPanes: {
+                    initCollapsed: true,
+                },
+                targets: [1,2,3,4,5,6,7,8,9,10]
+            }
+        ]
+
+    });
+    table.searchPanes.container().prependTo(table.table().container());
+    table.searchPanes.resizePanes();
+});
+</script>
+{% endblock %}

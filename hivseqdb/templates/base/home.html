@@ -1,0 +1,66 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>HIVseqDB | Home</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+{% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    {% endfor %}
+<!-- The home cards -->
+    <div class="row mt-3 pt-3 p-3 border-bottom border-info">
+        <h1><i class="fa fa-home" aria-hidden="true">&nbsp</i>HIVseqDB</h1>
+    </div> 
+    <div class="row pt-2 mb-5 p-2 shadow">    
+        <p>Portable resource for management and analysis of NGS-based HIV Drug Resistance Data</p>
+    </div>
+    <div class="row border p-5 shadow">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"> <i class="fa fa-database" aria-hidden="true"></i>
+                        &nbsp Data management</h4>
+                    <p class="card-text">Secure management of uploaded NGS data, matched with sample data.
+                        HIVseqDB provides a searchable database protected through user authentification.
+                    </p>
+                    <a class="btn btn-secondary btn-lg btn-block check" href="#">More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fa fa-sliders" aria-hidden="true"></i>
+                        &nbsp Data analysis</h4>
+                    <p class="card-text">NGS-based HIVDR data is asynchronously analysed using state of the art tools. Results are given off in user friendly pages and exportable in various formats.</p>
+                    <a class="btn btn-secondary btn-lg btn-block" href="#">More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fa fa-server" aria-hidden="true"></i>
+                        &nbsp Portability</h4>
+                        <p class="card-text"> HIVseqDB can be deployed on different computing environments. It is distributed with guidelines for setting it up for 
+                            on-prem and cloud-based compute solutions.</p>
+                        <a class="btn btn-secondary btn-lg btn-block" href="#">More</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+<br>  
+{% endblock %}

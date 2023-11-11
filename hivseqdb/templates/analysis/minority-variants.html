@@ -1,0 +1,182 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+<title>HIVseqDB | Minority variants</title>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+{% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+      </div>
+    {% endfor %}
+<div class="row mt-3 pt-3 p-3 border shadow">
+    <div class="col-md-12">
+        <div class="p-3 border-bottom border-info">
+            <h2><i class="fa fa-list" aria-hidden="true">&nbsp</i>Majority and Minority HIV-1 Drug Resistance Variants</h2>
+        </div>
+    </div>
+</div>
+<div class="row mt-3 pt-3 p-3 border shadow">
+    <div class="col-md-12">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#pr" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Protease</button>
+              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#rt" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reverse transcriptase</button>
+              <button class="nav-link" id="nav-minor-tab" data-toggle="tab" data-target="#int" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Integrase</button>
+            </div>
+        </nav>
+        <div class="tab-content">
+            <div id="pr" class="tab-pane fade show active mt-4">
+                <div id="pr-drms-plot"></div>
+            </div>
+            <div id="rt" class="tab-pane fade mt-4">
+                <div id="rt-drms-plot"></div>
+            </div>
+            <div id="int" class="tab-pane fade mt-4">
+                <div id="int-drms-plot"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3 pt-3 p-3 border shadow">
+    <table id="hivdr" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sample</th>
+                <th>Gene</th>
+                <th>Category</th>
+                <th>Surveillance</th>
+                <th>Wild type</th>
+                <th>Position</th>
+                <th>Mutation</th>
+                <th>Mutation frequency</th>
+                <th>Coverage</th>
+                <th>Project</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in project_variants %}
+            <tr>
+                <td><a href="{% url 'sampleMinorityVariants' result.sample %}">{{result.sample}}</a></td> 
+                <td>{{result.gene}}</td>
+                <td>{{result.category}}</td>
+                <td>{{result.surveillance}}</td>
+                <td>{{result.wildtype}}</td>
+                <td>{{result.position}}</td>
+                <td>{{result.mutation}}</td>
+                <td>{{result.mutation_frequency}}</td>
+                <td>{{result.coverage}}</td>
+                <td>{{result.project}}</td>
+                <!-- <td><a href="{% url 'sampleMinorityVariants' result.project %}">{{result.project}}</a></td> -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>    
+</div>
+</div>
+{% endblock %}
+
+{% block js %}  
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script> 
+<script>
+    
+    pr_variants={{pr_variants|safe}};
+    pr_majority={{pr_majority|safe}};
+    pr_minority={{pr_minority|safe}};
+
+    Highcharts.chart('pr-drms-plot', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Number of samples with drug resistance mutations in PR'
+        },
+        xAxis: {
+            categories: pr_variants
+        },
+        series: [{
+            name: 'Majority variants (>=20% MDT)',
+            data: pr_majority
+        }, {
+            name: 'Minority variants (<20% MDT)',
+            data: pr_minority
+        }],
+        accessibility: {
+            enabled: false
+        }
+    });
+  </script>
+
+<script>
+    
+    rt_variants={{rt_variants|safe}};
+    rt_majority={{rt_majority|safe}};
+    rt_minority={{rt_minority|safe}};
+
+    Highcharts.chart('rt-drms-plot', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Number of samples with drug resistance mutations in RT'
+        },
+        xAxis: {
+            categories: pr_variants
+        },
+        series: [{
+            name: 'Majority variants (>=20% MDT)',
+            data: pr_majority
+        }, {
+            name: 'Minority variants (<20% MDT)',
+            data: pr_minority
+        }],
+        accessibility: {
+            enabled: false
+        }
+    });
+  </script>
+
+
+<script>
+    $(document).ready(function() {
+      var table = $('#hivdr').DataTable({
+         // select: true,
+          dom: 'BPrtip',
+          
+          buttons: [
+              'pageLength',
+              { extend: 'csv', text: '<i class="fa fa-file-csv" aria-hidden="true"></i> Export as CSV' },
+              { extend: 'excel', text: '<i class="fa fa-file-excel" aria-hidden="true"></i> Export as EXCEL' },
+              { extend: 'pdf', text: '<i class="fa fa-file-pdf" aria-hidden="true"></i> Export as PDF' },
+              { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Print' },
+          ],
+          columnDefs: [
+              {
+                  searchPanes: {
+                      initCollapsed: true,
+                  },
+                  targets: [0,1,2,4,5]
+              },
+              {
+                  searchPanes: {
+                      show: false
+                  },
+                  targets: [3]
+              }
+          ]
+  
+      });
+      table.searchPanes.container().prependTo(table.table().container());
+      table.searchPanes.resizePanes();
+  });
+  </script>
+{% endblock %}
