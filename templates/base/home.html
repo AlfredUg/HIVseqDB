@@ -36,7 +36,29 @@
                     <p class="card-text">Secure management of uploaded NGS data, matched with sample data.
                         HIVseqDB provides a searchable database protected through user authentification.
                     </p>
-                    <a class="btn btn-secondary btn-lg btn-block check" href="https://github.com/AlfredUg/HIVseqDB/wiki/Overview#data-management">More</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#management">
+                        More
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="management" tabindex="-1" role="dialog" aria-labelledby="management" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="management">Data management</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            Data management
+                        
+                        </div>
+                        </div>
+                    </div>
+                    </div>                
                 </div>
             </div>
         </div>
@@ -46,7 +68,28 @@
                     <h4 class="card-title"><i class="fa fa-sliders" aria-hidden="true"></i>
                         &nbsp Data analysis</h4>
                     <p class="card-text">NGS-based HIVDR data is asynchronously analysed using state of the art tools. Results are given off in user friendly pages and exportable in various formats.</p>
-                    <a class="btn btn-secondary btn-lg btn-block" href="https://github.com/AlfredUg/HIVseqDB/wiki/Overview#data-analysis">More</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#analysis">
+                        More
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="analysis" tabindex="-1" role="dialog" aria-labelledby="analysis" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="analysis">Data analysis</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            Data analysis
+
+                        </div>
+                        </div>
+                    </div>
+                    </div>                
                 </div>
             </div>
         </div>
@@ -56,11 +99,34 @@
                     <h4 class="card-title"><i class="fa fa-server" aria-hidden="true"></i>
                         &nbsp Portability</h4>
                         <p class="card-text"> HIVseqDB can be deployed on different computing environments. It is distributed with guidelines for setting it up for 
-                            on-prem and cloud-based compute solutions.</p>
-                        <a class="btn btn-secondary btn-lg btn-block" href="https://github.com/AlfredUg/HIVseqDB/wiki/Overview#portability">More</a>
-                    </div>
+                            on-prem and cloud-based compute solutions.</p>                    
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#portability">
+                            More
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="portability" tabindex="-1" role="dialog" aria-labelledby="portability" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="portability">Portability</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                Portability
+
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
 <br>  
+
 {% endblock %}

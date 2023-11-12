@@ -6,7 +6,9 @@ from celery import shared_task
 from analysis.helpers import update_analysis_results, update_minority_variants
 
 @shared_task
-def run_quasiflow(project):
+def run_quasiflow(project, freq, depth, cons_perc, 
+                  error_rate, length, allele_count, 
+                  variant_qual, score, coverage):
     """ 
     This function takes up a project ID as input,
     it gets the path to the data of a corresponding project ID,
