@@ -22,7 +22,12 @@ def run_quasiflow(project, freq, depth, cons_perc,
     if not os.path.exists(output):
         os.makedirs(output)
     cmd=os.path.join(settings.BASE_DIR, 'scripts/runHIVDRanalysis.sh')
-    subprocess.run(["sh", cmd, input, output])
+
+    subprocess.run(["sh", cmd, input, output, 
+                    freq, depth, cons_perc, 
+                    error_rate, length, allele_count, 
+                    variant_qual, score, coverage])
+    
     update_results(projectID=project)
     update_minority(projectID=project)
     return True
