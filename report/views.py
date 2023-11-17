@@ -24,6 +24,10 @@ class DrugResistanceView(generic.View):
                 report_data=drug_resistance_report(request.FILES['JSON_file'])
                 return redirect('reportResult', report_data=report_data)
 
+def plots(request):
+    context = {}
+    return render(request, template_name='report/summary-plots.html', context=context)
+
 def drug_report_page(request, **kwargs):
     context = {}
     if 'report_data' in kwargs:
