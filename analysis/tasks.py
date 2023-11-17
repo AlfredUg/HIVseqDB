@@ -30,7 +30,7 @@ def run_quasiflow(project,
         os.makedirs(output)
     cmd=os.path.join(settings.BASE_DIR, 'scripts/runHIVDRanalysis.sh')
     #subprocess.run(["sh", cmd, input, output, consensus_Percentage, error_Rate, length_Cutoff, minimum_Allele_Count, minimum_Mutation_Frequency, minimum_Read_Depth, minimum_Variant_Quality, score_Cutoff, target_Coverage])
-    subprocess.Popen(["sh", cmd, input, output, consensus_Percentage, error_Rate, length_Cutoff, minimum_Allele_Count, minimum_Mutation_Frequency, minimum_Read_Depth, minimum_Variant_Quality, "20", target_Coverage])
+    subprocess.Popen(["sh", cmd, input, output, consensus_Percentage, error_Rate, length_Cutoff, minimum_Allele_Count, minimum_Mutation_Frequency, minimum_Read_Depth, minimum_Variant_Quality, score_Cutoff, target_Coverage])
     update_results(projectID=project)
     update_minority(projectID=project)
     return True
