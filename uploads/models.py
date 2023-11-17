@@ -9,14 +9,13 @@ def project_upload_path(instance, filename):
     return 'ngs/projects/{0}/{1}'.format(instance.project_Name, filename)
 
 class Project(models.Model):
-    project_ID=models.AutoField(primary_key=True)
+    projectID=models.AutoField(primary_key=True)
     project_Name=models.CharField(max_length=50)
     Region_Sequenced=models.CharField(max_length=50)
     Sequencing_Technology=models.CharField(max_length=50)
     Sequencing_Platform=models.CharField(max_length=50)
-    Sequencing_Date=models.DateField(default=timezone.now)
     fastq_Files = models.FileField(upload_to=project_upload_path, blank=False, null=False)
-    sample_File = models.FileField(blank=False, null=False)
+    sample_CSV_File = models.FileField(blank=False, null=False)
 
     def filename(self):
         return os.path.basename(self.fastq_Files.path)
