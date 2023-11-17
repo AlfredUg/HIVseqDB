@@ -49,8 +49,17 @@ class CreateNewAnalysisView(LoginRequiredMixin, SuccessMessageMixin, generic.Cre
                 score_Cutoff=score_Cutoff,
                 target_Coverage=target_Coverage
               )
-              analysis_instance.save() #save analysis parameters in database
-              run_quasiflow.delay(project_ID) # run analysis in background
+              run_quasiflow.delay(project_ID,
+                                consensus_Percentage,
+                                error_Rate,
+                                length_Cutoff,
+                                minimum_Allele_Count,
+                                minimum_Mutation_Frequency,
+                                minimum_Read_Depth,
+                                minimum_Variant_Quality,
+                                score_Cutoff,
+                                target_Coverage) # run analysis in background
+              #analysis_instance.save() #save analysis parameters in database
               messages.success(self.request, 'We are on it! Your analysis is running in the background.')
               return HttpResponseRedirect(self.request.path_info)
 

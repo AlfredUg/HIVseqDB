@@ -6,7 +6,16 @@ from celery import shared_task
 from analysis.helpers import update_analysis_results, update_minority_variants
 
 @shared_task
-def run_quasiflow(project):
+def run_quasiflow(project,
+                consensus_Percentage,
+                error_Rate,
+                length_Cutoff,
+                minimum_Allele_Count,
+                minimum_Mutation_Frequency,
+                minimum_Read_Depth,
+                minimum_Variant_Quality,
+                score_Cutoff,
+                target_Coverage):
     """ 
     This function takes up a project ID as input,
     it gets the path to the data of a corresponding project ID,
@@ -20,7 +29,8 @@ def run_quasiflow(project):
     if not os.path.exists(output):
         os.makedirs(output)
     cmd=os.path.join(settings.BASE_DIR, 'scripts/runHIVDRanalysis.sh')
-    subprocess.run(["sh", cmd, input, output])
+    #subprocess.run(["sh", cmd, input, output, consensus_Percentage, error_Rate, length_Cutoff, minimum_Allele_Count, minimum_Mutation_Frequency, minimum_Read_Depth, minimum_Variant_Quality, score_Cutoff, target_Coverage])
+    subprocess.Popen(["sh", cmd, input, output, consensus_Percentage, error_Rate, length_Cutoff, minimum_Allele_Count, minimum_Mutation_Frequency, minimum_Read_Depth, minimum_Variant_Quality, "20", target_Coverage])
     update_results(projectID=project)
     update_minority(projectID=project)
     return True

@@ -14,7 +14,7 @@ class CreateDataUpload(LoginRequiredMixin, SuccessMessageMixin, generic.CreateVi
     form_class = DataUploadNGSBatchForm
 
     def post(self, *args, **kwargs):
-          form = CreateDataUpload(data=self.request.POST, files=self.request.FILES)      
+          form = DataUploadNGSBatchForm(data=self.request.POST, files=self.request.FILES)      
           if form.is_valid():
               projectName=self.request.POST['project_Name']
               Region_Sequenced=self.request.POST['Region_Sequenced']

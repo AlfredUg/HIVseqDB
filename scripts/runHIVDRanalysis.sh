@@ -1,13 +1,18 @@
 
 input=$1
 output=$2
-min_freq=0.01
-min_dp=100
-consensus_pct=20
+consensus_Percentage=$3
+error_Rate=$4
+length_Cutoff=$5
+minimum_Allele_Count=$6
+minimum_Mutation_Frequency=$7
+minimum_Read_Depth=$8
+minimum_Variant_Quality=$9
+score_Cutoff=$10
 
 for sample in $(ls $input/*_1.fastq); do
     bn=$(basename $sample '_1.fastq');
-    quasitools hydra $input/${bn}_1.fastq $input/${bn}_2.fastq --generate_consensus -o $output;
+    quasitools hydra $input/${bn}_1.fastq $input/${bn}_2.fastq --consensus_pct ${consensus_Percentage} --error_rate ${error_Rate} --length_cutoff ${length_Cutoff} --min_ac ${minimum_Allele_Count} --reporting_threshold ${minimum_Mutation_Frequency} --min_dp ${minimum_Read_Depth} --min_variant_qual ${minimum_Variant_Quality} --generate_consensus --output_dir $output;
     mv $output/consensus.fasta $output/${bn}_consensus.fasta 
     mv $output/dr_report.csv $output/${bn}_dr_report.csv
     mv $output/mutation_report.aavf $output/${bn}_mutation_report.aavf
