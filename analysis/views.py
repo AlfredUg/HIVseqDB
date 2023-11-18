@@ -84,7 +84,8 @@ class ProjectAnalysisResultsDetailView(generic.ListView):
 class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
     model = AnalysisResults
     template_name = 'analysis/analysis-results.html'
-    paginate_by = 5
+    #paginate_by = 5
+    context_object_name = 'results'   
 
     def get_queryset(self):
         return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample'])

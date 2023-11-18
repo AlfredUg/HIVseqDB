@@ -24,5 +24,6 @@ done
 cat $output/*_drugscores.csv > $output/tmp_hivdr_report.csv
 grep -v "Drug" $output/tmp_hivdr_report.csv > $output/combined_hivdr_report.csv
 
-cat $output/*_dr_report.csv > $output/tmp_minority_variants_report.csv
+for f in $(ls $output/*dr_report.csv); do bn=$(basename $f '_dr_report.csv'); sed "s/$/,$bn/g" $f >  $output/${bn}_renamed_report.csv; done
+cat $output/*_renamed_report.csv > $output/tmp_minority_variants_report.csv
 grep -v "Chromosome" $output/tmp_minority_variants_report.csv > $output/combined_minority_variants_report.csv
