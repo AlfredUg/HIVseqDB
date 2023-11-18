@@ -17,6 +17,13 @@
     {% endfor %}
 <div class="row mt-3 pt-3 p-3 border shadow">
     <div class="col-md-12">
+        <div class="p-3 border-bottom border-info">
+            <h2><i class="fa fa-list" aria-hidden="true">&nbsp</i>Majority and Minority HIV-1 Drug Resistance Variants</h2>
+        </div>
+    </div>
+</div>
+<div class="row mt-3 pt-3 p-3 border shadow">
+    <div class="col-md-12">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <button class="nav-link active" id="nav-major-tab" data-toggle="tab" data-target="#pr" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Protease</button>
@@ -42,6 +49,7 @@
     <table id="hivdr" class="table table-striped">
         <thead>
             <tr>
+                <th>Sample</th>
                 <th>Gene</th>
                 <th>Category</th>
                 <th>Surveillance</th>
@@ -56,6 +64,7 @@
         <tbody>
             {% for result in project_variants %}
             <tr>
+                <td><a href="{% url 'sampleMinorityVariants' result.sample %}">{{result.sample}}</a></td> 
                 <td>{{result.gene}}</td>
                 <td>{{result.category}}</td>
                 <td>{{result.surveillance}}</td>
@@ -65,7 +74,7 @@
                 <td>{{result.mutation_frequency}}</td>
                 <td>{{result.coverage}}</td>
                 <td>{{result.project}}</td>
-                <!-- <td><a href="{% url 'projectMinorityVariants' result.project %}">{{result.project}}</a></td> -->
+                <!-- <td><a href="{% url 'sampleMinorityVariants' result.project %}">{{result.project}}</a></td> -->
             </tr>
             {% endfor %}
         </tbody>
