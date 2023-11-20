@@ -30,7 +30,65 @@ def update_minority_variants(df):
             project=row['project'] #take note of how to handle foreign keys in django
         )
 
-# function to create highcharts
+# functions to create data for highcharts
+
+def variants_viralload(gene='RT'):
+
+    sample_df = pd.DataFrame.from_records(Sample.objects.all().values())
+    variants_df = pd.DataFrame.from_records(MinorityVariantsResult.objects.all().values())
+
+    sample_variants = pd.merge(sample_df, variants_df,left_on='sampleName', right_on='sample')
+    sample_variants['variant'] = sample_variants['wildtype']+sample_variants['position'].astype(str)+sample_variants['mutation']
+
+    vl = sample_variants['viralLoad']
+    cond_list_vl = [vl<1000, vl<10000, vl<100000, vl<1000000, vl>=1000000]
+    choice_list_vl = ["< 1k", "1k - 10k", "10k - 100k", "100k - 1m", ">1m"]
+
+    sample_variants['viralLoadCat'] = np.select(condlist=cond_list_vl, choicelist=choice_list_vl)
+    sample_variants=sample_variants[sample_variants['gene']==gene]
+    sample_variants=sample_variants[['variant','viralLoadCat']]
+    print(type(sample_variants))
+    sample_variants['count']=1
+
+    sample_variants_counts = sample_variants.groupby(['variant','viralLoadCat']).count().unstack(fill_value=0).stack().reset_index()
+    variants = list(set(sample_variants['variant']))
+    vl_1k = list(sample_variants_counts[sample_variants_counts['viralLoadCat']=='< 1k']['count'])
+    vl_10k = list(sample_variants_counts[sample_variants_counts['viralLoadCat']=='1k - 10k']['count'])
+    vl_100k = list(sample_variants_counts[sample_variants_counts['viralLoadCat']=='10k - 100k']['count'])
+    vl_1m = list(sample_variants_counts[sample_variants_counts['viralLoadCat']=='100k - 1m']['count'])
+    vl_over1m = list(sample_variants_counts[sample_variants_counts['viralLoadCat']=='>1m']['count'])
+
+    chart_data = variants, vl_1k, vl_10k, vl_100k, vl_1m, vl_over1m
+    return chart_data
+
+def drug_resistance_plot():
+
+    sample_df = pd.DataFrame.from_records(Sample.objects.all().values())
+    dr_df = pd.DataFrame.from_records(AnalysisResults.objects.all().values())
+
+    sample_dr = pd.merge(sample_df, dr_df,left_on='sampleName', right_on='sample_ID')
+
+    ag = sample_dr['age']
+    cond_list_age = [ag<15, ag<=24, ag<=34, ag<=44, ag>=45]
+    choice_list_age = ["<15", "15-24", "25-34", "35-44", ">45"]
+
+    sample_dr['ageGroup'] = np.select(condlist=cond_list_age, choicelist=choice_list_age)
+    sample_dr=sample_dr[['sampleName','susceptibility','ageGroup']]
+    sample_dr=sample_dr.drop_duplicates()
+
+    print(type(sample_dr))
+    sample_dr['count']=1
+
+    sample_dr_counts = sample_dr.groupby(['susceptibility','ageGroup']).count().unstack(fill_value=0).stack().reset_index()
+    categories = list(set(sample_dr['susceptibility']))
+    ag1= list(sample_dr_counts[sample_dr_counts['ageGroup']=='<15']['count'])
+    ag2= list(sample_dr_counts[sample_dr_counts['ageGroup']=='15-24']['count'])
+    ag3 = list(sample_dr_counts[sample_dr_counts['ageGroup']=='25-34']['count'])
+    ag4 = list(sample_dr_counts[sample_dr_counts['ageGroup']=='35-44']['count'])
+    ag5 = list(sample_dr_counts[sample_dr_counts['ageGroup']=='>45']['count'])
+
+    chart_data = categories, ag1, ag2, ag3, ag4, ag5
+    return chart_data
 
 def project_gene_drms(project, gene):
     variants=MinorityVariantsResult.objects.filter(project=project, gene=gene)
