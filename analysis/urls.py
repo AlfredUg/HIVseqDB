@@ -10,5 +10,5 @@ urlpatterns = [
     path('analysis/minority-variants/project/<slug:project>', minority, name='projectMinorityVariants'),
     path('analysis/minority-variants/sample/<slug:sample>', minority_sample, name='sampleMinorityVariants'),
     path('analysis/drug-resistance-report/<slug:sample>', drug_resistance_report, name='sampleDrugResistance'),
-    path('analysis/summary-plots/', summary_plots, name='summaryPlots'),
+    path('analysis/summary-plots/<slug:gene>', summary_plots, name='summaryPlots'),
 ]

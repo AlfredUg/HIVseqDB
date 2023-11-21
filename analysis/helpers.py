@@ -32,7 +32,7 @@ def update_minority_variants(df):
 
 # functions to create data for highcharts
 
-def variants_viralload(gene='RT'):
+def variants_viralload(gene):
 
     sample_df = pd.DataFrame.from_records(Sample.objects.all().values())
     variants_df = pd.DataFrame.from_records(MinorityVariantsResult.objects.all().values())
@@ -61,12 +61,23 @@ def variants_viralload(gene='RT'):
     chart_data = variants, vl_1k, vl_10k, vl_100k, vl_1m, vl_over1m
     return chart_data
 
-def drug_resistance_plot():
+def drug_resistance_plot(gene):
 
     sample_df = pd.DataFrame.from_records(Sample.objects.all().values())
     dr_df = pd.DataFrame.from_records(AnalysisResults.objects.all().values())
 
     sample_dr = pd.merge(sample_df, dr_df,left_on='sampleName', right_on='sample_ID')
+
+    inhibitor = ''
+    if gene == 'PR':
+        inhibitor=['PI']
+    elif gene == 'RT':
+        inhibitor=['NRTI', 'NNRTI']
+    elif gene == 'IN':
+        inhibitor=['INSTI']
+
+    sample_dr = sample_dr[sample_dr['drugClass'].isin(inhibitor)]
+    print(type(sample_dr))
 
     ag = sample_dr['age']
     cond_list_age = [ag<15, ag<=24, ag<=34, ag<=44, ag>=45]

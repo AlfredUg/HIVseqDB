@@ -91,10 +91,10 @@ class SampleAnalysisResultsDetailView(LoginRequiredMixin, generic.ListView):
         return AnalysisResults.objects.filter(sample_ID=self.kwargs['sample'])
 
 
-def summary_plots(request):
+def summary_plots(request, gene):
 
-    variants, vl_1k, vl_10k, vl_100k, vl_1m, vl_over1m = variants_viralload()
-    susceptibility, ag1, ag2, ag3, ag4, ag5 = drug_resistance_plot()
+    variants, vl_1k, vl_10k, vl_100k, vl_1m, vl_over1m = variants_viralload(gene=gene)
+    susceptibility, ag1, ag2, ag3, ag4, ag5 = drug_resistance_plot(gene=gene)
     context = {'variants': variants, 
                'vl_1k': vl_1k, 
                'vl_10k': vl_10k, 
@@ -111,9 +111,6 @@ def summary_plots(request):
                }
 
     return render(request, 'analysis/summary-plots.html', context=context)
-
-
-
 
 @login_required
 def minority(request, project):

@@ -70,8 +70,13 @@
         <li class="nav-item">
           <a class="nav-link" style="color:#fff" href="/analysis/results/">Browse analyses</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" style="color:#fff" href="/analysis/summary-plots/">Summary plots</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#fff" href="#">Drug resistance plots</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/analysis/summary-plots/PR">Protease inhibitors</a>
+            <a class="dropdown-item" href="/analysis/summary-plots/RT">Reverse transcriptase inhibitors</a>
+            <a class="dropdown-item" href="/analysis/summary-plots/IN">Integrase inhibitors</a>
+          </div>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" style="color:#fff" href="/tools/generate-drug-resistance-report/">Generate drug resistance report</a>
