@@ -14,6 +14,12 @@ Navigate to the cloned repository
 cd HIVseqDB
 ```
 
+Switch over to the development branch
+
+```
+git checkout dev
+```
+
 Create a virtual environment and activate it.
 
 ```
@@ -25,6 +31,13 @@ Install dependancies
 
 ```
 pip -m install requirements.txt
+```
+
+In addition, have a working version of sierralocal and quasitools.
+
+```
+pip install sierralocal
+conda install -c bioconda quasitools
 ```
 
 Make migrations and execute them
@@ -52,3 +65,4 @@ Start `Celery` on a different shell tab/window
 ```
 python -m celery -A hivseqdb worker
 ```
+
