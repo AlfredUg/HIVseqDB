@@ -69,12 +69,16 @@ def drug_resistance_plot(gene):
     sample_dr = pd.merge(sample_df, dr_df,left_on='sampleName', right_on='sample_ID')
 
     inhibitor = ''
+    drugclass = ''
     if gene == 'PR':
         inhibitor=['PI']
+        drugclass='protease inhibitors'
     elif gene == 'RT':
         inhibitor=['NRTI', 'NNRTI']
+        drugclass='reverse transcriptase inhibitors'
     elif gene == 'IN':
         inhibitor=['INSTI']
+        drugclass='integrase strand transfer inhibitors'
 
     sample_dr = sample_dr[sample_dr['drugClass'].isin(inhibitor)]
     print(type(sample_dr))
@@ -98,7 +102,7 @@ def drug_resistance_plot(gene):
     ag4 = list(sample_dr_counts[sample_dr_counts['ageGroup']=='35-44']['count'])
     ag5 = list(sample_dr_counts[sample_dr_counts['ageGroup']=='>45']['count'])
 
-    chart_data = categories, ag1, ag2, ag3, ag4, ag5
+    chart_data = categories, ag1, ag2, ag3, ag4, ag5, drugclass
     return chart_data
 
 def project_gene_drms(project, gene):
