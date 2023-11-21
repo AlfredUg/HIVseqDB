@@ -1,0 +1,207 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>HIVseqDB | Generate HIVDR report from JSON file</title>
+{% endblock %}
+
+{% block top_js %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="mt-3 pt-3 p-3 border shadow">
+        <div class="p-3 border-bottom border-info">
+            <h2>Drug resistance plots for {{ drugclass | safe }}</h2>
+        </div>
+    </div>
+
+    <div class="mt-3 pt-3 p-3 border shadow">
+    <div class="form-row">
+        <div class="col-md-12">
+        <figure class="highcharts-figure">
+            <div id="container1"></div>
+            <p class="highcharts-description">
+            </p>
+        </figure>        
+        </div>
+        <div class="col-md-12">
+            <figure class="highcharts-figure">
+                <div id="container2"></div>
+                <p class="highcharts-description">
+                </p>
+            </figure>        
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}  
+<script>
+    variants={{variants|safe}};
+    vl_1k={{vl_1k|safe}};
+    vl_10k={{vl_10k|safe}};
+    vl_100k={{vl_100k|safe}};
+    vl_1m={{vl_1m|safe}};
+    vl_over1m={{vl_over1m|safe}};
+    
+    Highcharts.chart('container1', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Prevalence of drug resistance variants at different viral load levels',
+        align: 'left'
+    },
+    subtitle: {
+        text: '',
+        align: 'left'
+    },
+    xAxis: {
+        categories: variants,
+        crosshair: true,
+        accessibility: {
+            description: ''
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'No. of samples'
+        }
+    },
+    tooltip: {
+        valueSuffix: ''
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },legend: {
+        title: {
+            text: 'Viral load (copies/mL)<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
+        },
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        floating: true,
+        borderWidth: 1,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+        shadow: true
+    },
+    series: [
+        {
+            name: '<1K',
+            data: vl_1k
+        },
+        {
+            name: '1K-10K',
+            data: vl_10k
+        },
+        {
+            name: '10K-100K',
+            data: vl_100k
+        },
+        {
+            name: '100K-1M',
+            data: vl_1m
+        },
+        {
+            name: '>1M',
+            data: vl_over1m
+        }
+
+    ]
+});
+</script>
+
+<script>
+    susceptibility={{susceptibility|safe}};
+    ag1={{ag1|safe}};
+    ag2={{ag2|safe}};
+    ag3={{ag3|safe}};
+    ag4={{ag4|safe}};
+    ag5={{ag5|safe}};
+    
+    Highcharts.chart('container2', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Drug resistance levels across age groups',
+        align: 'left'
+    },
+    xAxis: {
+        categories: susceptibility,
+        crosshair: true,
+        accessibility: {
+            description: ''
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'No. of samples'
+        }
+    },
+    tooltip: {
+        valueSuffix: ''
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },legend: {
+        title: {
+            text: 'Age groups<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
+        },
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        floating: true,
+        borderWidth: 1,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+        shadow: true
+    },
+    series: [
+        {
+            name: '< 15',
+            data: ag1
+        },
+        {
+            name: '15-24',
+            data: ag2
+        },
+        {
+            name: '25-34',
+            data: ag3
+        },
+        {
+            name: '35-44',
+            data: ag4
+        },
+        {
+            name: '45+',
+            data: ag5
+        }
+
+    ]
+});
+</script>
+
+{% endblock %}
