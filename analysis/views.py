@@ -95,6 +95,8 @@ def summary_plots(request, gene):
 
     variants, vl_1k, vl_10k, vl_100k, vl_1m, vl_over1m = variants_viralload(gene=gene)
     susceptibility, ag1, ag2, ag3, ag4, ag5, drugclass = drug_resistance_plot(gene=gene)
+    mt_variants, mt_vl_1k, mt_vl_10k, mt_vl_100k, mt_vl_1m, mt_vl_over1m = mutation_frequency_viralload(gene=gene)
+
     context = {'variants': variants, 
                'vl_1k': vl_1k, 
                'vl_10k': vl_10k, 
@@ -108,7 +110,14 @@ def summary_plots(request, gene):
                'ag3':ag3,
                'ag4':ag4,
                'ag5':ag5,
-               'drugclass':drugclass
+               'drugclass':drugclass,
+
+               'mt_variants': mt_variants,
+               'mt_vl_1k': mt_vl_1k,
+               'mt_vl_10k': mt_vl_10k,
+               'mt_vl_100k': mt_vl_100k,
+               'mt_vl_1m': mt_vl_1m,
+               'mt_vl_over1m':mt_vl_over1m
                }
 
     return render(request, 'analysis/summary-plots.html', context=context)

@@ -11,6 +11,8 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
 {% endblock %}
 
 {% block css %}
@@ -43,6 +45,13 @@
                 </p>
             </figure>        
         </div>
+        <div class="col-md-12">
+            <figure class="highcharts-figure">
+                <div id="container3"></div>
+                <p class="highcharts-description">
+                </p>
+            </figure>        
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -61,7 +70,7 @@
         type: 'column'
     },
     title: {
-        text: 'Prevalence of drug resistance variants at different viral load levels',
+        text: 'Prevalence of drug resistant variants at different viral load levels',
         align: 'left'
     },
     subtitle: {
@@ -104,23 +113,23 @@
     },
     series: [
         {
-            name: '<1K',
+            name: 'Below 1,000',
             data: vl_1k
         },
         {
-            name: '1K-10K',
+            name: '1,000 to < 10,000',
             data: vl_10k
         },
         {
-            name: '10K-100K',
+            name: '10,000 to < 100,000',
             data: vl_100k
         },
         {
-            name: '100K-1M',
+            name: '100,000 to < 1,000,000',
             data: vl_1m
         },
         {
-            name: '>1M',
+            name: '>1,000,000',
             data: vl_over1m
         }
 
@@ -169,7 +178,7 @@
         title: {
             text: 'Age groups<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
         },
-        layout: 'vertical',
+        layout: 'horizontal',
         align: 'right',
         verticalAlign: 'top',
         floating: true,
@@ -203,5 +212,71 @@
     ]
 });
 </script>
+
+<script>
+    // Sample data for grouped box plots
+
+    mt_variants={{mt_variants|safe}};
+    mt_vl_1k={{mt_vl_1k|safe}};
+    mt_vl_10k={{mt_vl_10k|safe}};
+    mt_vl_100k={{mt_vl_100k|safe}};
+    mt_vl_1m={{mt_vl_1m|safe}};
+    mt_vl_over1m={{mt_vl_over1m|safe}};
+
+    var data = [
+      {
+        name: 'Below 1,000',
+        data: mt_vl_1k
+      },
+      {
+        name: '1,000 to < 10,000',
+        data: mt_vl_10k
+      },
+      {
+        name: '1,0000 to < 100,000',
+        data: mt_vl_100k
+      },
+      {
+        name: '100,000 to < 1,000,000',
+        data: mt_vl_1m
+      },
+      {
+        name: '>1,000,000',
+        data: mt_vl_over1m
+        }
+    ];
+    
+    // Create the chart
+    Highcharts.chart('container3', {
+      chart: {
+        type: 'boxplot'
+      },
+      title: {
+        text: 'Distribution of mutation frequency for different viral load levels',
+        align: 'left'
+      },
+      xAxis: {
+        categories: mt_variants
+      },
+      yAxis: {
+        title: {
+          text: 'Mutation frequency'
+        }
+      },legend: {
+        title: {
+            text: 'Viral load (copies/mL)<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click to hide)</span>',
+        },
+        layout: 'horizontal',
+        align: 'right',
+        verticalAlign: 'top',
+        floating: true,
+        borderWidth: 1,
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+        shadow: true
+    },
+      series: data
+    });
+    </script>    
 
 {% endblock %}

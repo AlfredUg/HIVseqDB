@@ -61,6 +61,39 @@ def variants_viralload(gene):
     chart_data = variants, vl_1k, vl_10k, vl_100k, vl_1m, vl_over1m
     return chart_data
 
+def mutation_frequency_viralload(gene):
+
+    sample_df = pd.DataFrame.from_records(Sample.objects.all().values())
+    variants_df = pd.DataFrame.from_records(MinorityVariantsResult.objects.all().values())
+
+    sample_variants = pd.merge(sample_df, variants_df,left_on='sampleName', right_on='sample')
+    sample_variants['variant'] = sample_variants['wildtype']+sample_variants['position'].astype(str)+sample_variants['mutation']
+
+    vl = sample_variants['viralLoad']
+    cond_list_vl = [vl<1000, vl<10000, vl<100000, vl<1000000, vl>=1000000]
+    choice_list_vl = ["< 1k", "1k - 10k", "10k - 100k", "100k - 1m", ">1m"]
+
+    sample_variants['viralLoadCat'] = np.select(condlist=cond_list_vl, choicelist=choice_list_vl)
+    sample_variants=sample_variants[sample_variants['gene']==gene]
+    sample_variants=sample_variants[['variant','viralLoadCat','mutation_frequency']]
+    sample_variants['mutation_frequency'] = pd.to_numeric(sample_variants['mutation_frequency'], errors='coerce')
+    print(type(sample_variants))
+
+    sample_variants_counts = sample_variants.groupby(['variant','viralLoadCat'])['mutation_frequency'].describe(percentiles=[0.25, 0.5, 0.75]).unstack(fill_value=0).stack().reset_index()
+    sample_variants_counts = sample_variants_counts.drop(['count','mean','std'], axis=1)
+    
+    variants = list(set(sample_variants['variant']))
+
+    vl_1k = [row[['min', '25%', '50%', '75%', 'max']].values.tolist() for _, row in sample_variants_counts[sample_variants_counts['viralLoadCat'] == '< 1k'].iterrows()]
+    vl_10k = [row[['min', '25%', '50%', '75%', 'max']].values.tolist() for _, row in sample_variants_counts[sample_variants_counts['viralLoadCat'] == '1k - 10k'].iterrows()]
+    vl_100k = [row[['min', '25%', '50%', '75%', 'max']].values.tolist() for _, row in sample_variants_counts[sample_variants_counts['viralLoadCat'] == '10k - 100k'].iterrows()]
+    vl_1m = [row[['min', '25%', '50%', '75%', 'max']].values.tolist() for _, row in sample_variants_counts[sample_variants_counts['viralLoadCat'] == '100k - 1m'].iterrows()]
+    vl_over1m = [row[['min', '25%', '50%', '75%', 'max']].values.tolist() for _, row in sample_variants_counts[sample_variants_counts['viralLoadCat'] == '>1m'].iterrows()]
+
+    chart_data = variants, vl_1k, vl_10k, vl_100k, vl_1m, vl_over1m
+    return chart_data
+
+
 def drug_resistance_plot(gene):
 
     sample_df = pd.DataFrame.from_records(Sample.objects.all().values())
