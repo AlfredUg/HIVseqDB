@@ -40,6 +40,12 @@ pip install sierralocal
 conda install -c bioconda quasitools
 ```
 
+Setting up the `SECRET_KEY`. To set this manually, open the settings file (located at `$(PWD/hivseqbb/settings.py`), and add a value for the `SECRET_KEY` or export it to the system `PATH` as indicated below.
+
+```
+export SECRET_KEY='some-hash-string'
+```
+
 Make migrations and execute them
 
 ```
