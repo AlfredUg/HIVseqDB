@@ -53,7 +53,22 @@
                         </div>
                         <div class="modal-body">
 
-                            Data management
+                            <p>The storage system of HIVseqDB is configured with precision: Next Generation Sequencing (NGS) data 
+                                is allocated to the file system, whereas demographics and clinical data find their repository 
+                                in the relational database. This design incorporates a linking mechanism that seamlessly 
+                                integrates NGS data with other crucial components, specifically demographics and clinical 
+                                information. This fusion establishes a foundation for HIVseqDB's capability to offer a 
+                                comprehensive understanding of HIV drug resistance. It underscores the inherent connection 
+                                between drug resistant variants derived from individual patient profiles and 
+                                associated demographics and clinical history.
+                            </p>
+                            <p>
+                                While the system has implemented security measures to safeguard the integrity and confidentiality 
+                                of the stored data, a noteworthy aspect is the strong recommendation for users to deploy 
+                                HIVseqDB in environments deemed sufficiently secure. The emphasis is on restricting access to 
+                                authenticated users only, underlining a commitment to data security and privacy. 
+                                This approach ensures that the application is utilized in contexts where the integrity of sensitive genetic and clinical information can be maintained at the highest standards.
+                            </p>
                         
                         </div>
                         </div>
@@ -83,9 +98,13 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-                            Data analysis
-
+                            <p>
+                                <Strong>Analysis:</Strong> Within HIVseqDB, the analysis of Next Generation Sequencing (NGS)-based drug resistance data is achieved through various tools tailored for distinct functionalities. Quasitools for quality control, reference mapping, and variant calling, sierralocal for drug resistance interpretation, specifically referencing the Stanford HIVdb. 
+                                Python packages, including JSON, numpy, and pandas collectively enable efficient data manipulation and computation. 
+                            </p>
+                                <p> 
+                                <Strong>Reporting:</Strong> Django HTML templates are used to generate HIV drug resistance reports. Data tables are used for displaying analysis results in interactive tables. Highcharts library is used to enhance the visual representation of results, providing an interactive platform for researchers to explore intricate patterns within the drug resistance data. 
+                            </p>
                         </div>
                         </div>
                     </div>
@@ -117,7 +136,12 @@
                             </div>
                             <div class="modal-body">
 
-                                Portability
+                                <p>
+                                    HIVseqDB achieves portability through Docker, utilizing Docker Compose for seamless deployment across diverse computing platforms. Docker Compose simplifies the orchestration of multiple containers, ensuring that the tool and its dependencies can be easily set up and run consistently on various systems. This approach enhances accessibility and flexibility, allowing users to deploy HIVseqDB with efficiency regardless of the underlying computing environment. 
+                                </p>
+                                <p> 
+                                    In addition to containerization, HIVseqDB emphasizes openness by providing an open-source development version. This version, available for evaluation, enabling laboratories with advanced users to tailor HIVseqDB to their specific requirements.
+                                </p>
 
                             </div>
                             </div>
