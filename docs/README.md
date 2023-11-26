@@ -146,7 +146,7 @@ gunzip *.gz
 Get corresponding sample data from the associated publication. Again, many thanks to Avila-Ríos, Santiago, et al. We use the formatted version of the data, but the original file is available [here](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0164156#sec024).
 
 ```bash
-wget https://github.com/AlfredUg/hivseqdb-docker/raw/main/data/Santiago_Nicagura_2016.csv
+wget https://raw.githubusercontent.com/AlfredUg/HIVseqDB/main/data/Santiago2016_short.csv
 ```
 
 Follow the instructions as demonstrated in the video to upload, analyse and browse.
