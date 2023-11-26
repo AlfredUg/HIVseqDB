@@ -23,6 +23,12 @@ Navigate to the cloned repository
 cd HIVseqDB
 ```
 
+Switch over to the development branch
+
+```
+git checkout dev
+```
+
 Create a virtual environment and activate it.
 
 ```
@@ -34,6 +40,19 @@ Install dependancies
 
 ```
 pip -m install requirements.txt
+```
+
+In addition, have a working version of sierralocal and quasitools.
+
+```
+pip install sierralocal
+conda install -c bioconda quasitools
+```
+
+Setting up the `SECRET_KEY`. To set this manually, open the settings file (located at `$(PWD/hivseqdb/settings.py`), and add a value for the `SECRET_KEY` or export it to the system `PATH` as indicated below.
+
+```
+export SECRET_KEY='some-hash-string'
 ```
 
 Make migrations and execute them
@@ -61,7 +80,6 @@ Start `Celery` on a different shell tab/window
 ```
 python -m celery -A hivseqdb worker
 ```
-
 
 ## Working with the Docker version
 
@@ -111,7 +129,7 @@ Below is a quick video of the HOW-TOs of HIVseqDB.
 
 NOTE: The NGS data used in this demonstration is publically available at the NCBI Sequence Read Archive (SRA) and the European Nucleotide Archive (ENA), Bioproject accession PRJNA340290. Corresponding sample data was obtained from the associated publication. Many thanks to Avila-Ríos, Santiago, et al. "HIV drug resistance in antiretroviral treatment-naïve individuals in the largest public hospital in Nicaragua, 2011-2015." PLoS One 11.10 (2016): e0164156.
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/JFPegaIcD7w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![Alt text for your video](https://www.youtube.com/embed/JFPegaIcD7w/0.jpg)](https://www.youtube.com/embed/JFPegaIcD7w)
 
 ## Test data
 
