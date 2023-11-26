@@ -72,3 +72,4 @@ Start `Celery` on a different shell tab/window
 python -m celery -A hivseqdb worker
 ```
 
+HIVseqDB customization instructions are indicated on [here](https://github.com/AlfredUg/HIVseqDB/wiki/HIVseqDB-customization).
