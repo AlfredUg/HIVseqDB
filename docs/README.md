@@ -136,10 +136,10 @@ NOTE: The NGS data used in this demonstration is publically available at the NCB
 To demonstrate the usage of HIVseqDB, download real HIV-1 NGS data from the European Nucleotide Archive (ENA), Bioproject accession PRJNA340290. 
 
 ```bash
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR407/007/SRR4071737/SRR4071737_1.fastq.gz
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR407/007/SRR4071737/SRR4071737_2.fastq.gz
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR407/008/SRR4071738/SRR4071738_1.fastq.gz
-wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR407/008/SRR4071738/SRR4071738_2.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR408/002/SRR4089862/SRR4089862_1.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR408/002/SRR4089862/SRR4089862_2.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR408/004/SRR4089864/SRR4089864_1.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR408/004/SRR4089864/SRR4089864_2.fastq.gz
 gunzip *.gz
 ```
 
