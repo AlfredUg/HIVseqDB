@@ -131,7 +131,7 @@ Below is a quick video of the HOW-TOs of HIVseqDB.
 
 NOTE: The NGS data used in this demonstration is publically available at the NCBI Sequence Read Archive (SRA) and the European Nucleotide Archive (ENA), Bioproject accession PRJNA340290. Corresponding sample data was obtained from the associated publication. Many thanks to Avila-Ríos, Santiago, et al. "HIV drug resistance in antiretroviral treatment-naïve individuals in the largest public hospital in Nicaragua, 2011-2015." PLoS One 11.10 (2016): e0164156.
 
-[![Alt text for your video](http://img.youtube.com/vi/JFPegaIcD7w/0.jpg)](http://www.youtube.com/watch?v=JFPegaIcD7w)
+[![Alt text for your video](https://raw.githubusercontent.com/AlfredUg/HIVseqDB/main/data/Thumbnail.png)](http://www.youtube.com/watch?v=JFPegaIcD7w)
 
 ## Test data
 
