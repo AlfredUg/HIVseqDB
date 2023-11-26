@@ -49,7 +49,7 @@ pip install sierralocal
 conda install -c bioconda quasitools
 ```
 
-Setting up the `SECRET_KEY`. To set this manually, open the settings file (located at `$(PWD/hivseqdb/settings.py`), and add a value for the `SECRET_KEY` or export it to the system `PATH` as indicated below.
+Setting up the `SECRET_KEY`. To set this manually, open the settings file (located at `$(PWD)/hivseqdb/settings.py`, and add a value for the `SECRET_KEY` or export it to the system `PATH` as indicated below.
 
 ```
 export SECRET_KEY='some-hash-string'
@@ -80,6 +80,8 @@ Start `Celery` on a different shell tab/window
 ```
 python -m celery -A hivseqdb worker
 ```
+
+Note: Quasitools and Sierralocal should ba accessible in the environment in which `Celery` runs.
 
 ## Working with the Docker version
 
@@ -129,7 +131,10 @@ Below is a quick video of the HOW-TOs of HIVseqDB.
 
 NOTE: The NGS data used in this demonstration is publically available at the NCBI Sequence Read Archive (SRA) and the European Nucleotide Archive (ENA), Bioproject accession PRJNA340290. Corresponding sample data was obtained from the associated publication. Many thanks to Avila-Ríos, Santiago, et al. "HIV drug resistance in antiretroviral treatment-naïve individuals in the largest public hospital in Nicaragua, 2011-2015." PLoS One 11.10 (2016): e0164156.
 
+<center>
 [![Alt text for your video](http://img.youtube.com/vi/JFPegaIcD7w/0.jpg)](http://www.youtube.com/watch?v=JFPegaIcD7w)
+</center>
+
 
 ## Test data
 
