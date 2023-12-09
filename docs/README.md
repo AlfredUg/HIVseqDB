@@ -39,7 +39,7 @@ source venv/bin/activate
 Install dependancies
 
 ```
-pip -m install requirements.txt
+pip install -r requirements.txt
 ```
 
 In addition, have a working version of sierralocal and quasitools.
